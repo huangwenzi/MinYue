@@ -12,9 +12,9 @@ import modules.view.mainView as mainViewMd
 def run():
     # 初始化一个界面类
     mainView = mainViewMd.MainView()
+    
 
     while True:
-
         # 界面绘制
         mainView.draw()
 

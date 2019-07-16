@@ -26,15 +26,27 @@ class viewBase():
     def __init__(self, image_path):
         tmp_obj = pygame.image.load(image_path)
         if tmp_obj:
+            self.name = ""
+            self.height = tmp_obj.get_height()
+            self.wide = tmp_obj.get_width()
+            self.image_path = image_path
+            self.x = 0
+            self.y = 0
+            self.image_obj = tmp_obj
+
+    # 绘制自身
+    # view_obj: 调用绘制对象（一般为主视图）
+    # pos: 上一层的坐标偏移
+    def draw(self, view_obj, pos):
+        x = self.x + pos[0]
+        y = self.y + pos[0]
+        view_obj.blit(self.image_obj, (x, y))
+    # 设置背景图
+    # image_path: 背景图地址
+    def set_background(self, image_path):
+        tmp_obj = pygame.image.load(image_path)
+        if tmp_obj:
             self.image_path = image_path
             self.image_obj = tmp_obj
             self.height = tmp_obj.get_height()
             self.wide = tmp_obj.get_width()
-
-    # 绘制自身
-    # blit_obj: 调用绘制对象（一般为主视图）
-    # pos: 上一层的坐标偏移
-    def draw(self, blit_obj, pos):
-        x = self.x + pos[0]
-        y = self.y + pos[0]
-        blit_obj.blit(self.image_obj, (x, y))
