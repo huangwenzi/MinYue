@@ -1,3 +1,5 @@
+# 官方模块
+import time
 
 # 三方模块
 import pygame
@@ -12,6 +14,10 @@ import modules.view.viewVessel as viewVesselMd
 
 # 这是主界面
 class MainView(viewVesselMd.viewVessel):
+    # 设置
+    fps = 1 # 帧率
+    LastUpdate = 0  # 上次刷新界面时间
+
     # 视图对象
     view_obj = None    # 窗体对象
 
@@ -24,13 +30,22 @@ class MainView(viewVesselMd.viewVessel):
         pygame.display.set_caption(self.name)
         self.set_background(self.image_path)
         self.view_obj = pygame.display.set_mode((self.height, self.wide))
+        self.fps = 0.5
+        self.LastUpdate = time.time()
 
 
     # 图像设置函数
     # 主界面绘制
     # 也是调用其他界面绘制的地方
     def draw(self):
+        # 根据帧率刷新
+        now = time.time()
+        if self.LastUpdate + self.fps > now:
+            return
         super(MainView, self).draw(self.view_obj, (0, 0))
         pygame.display.flip()
+        
+        # 更新刷新时间
+        self.LastUpdate = now
 
 

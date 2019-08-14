@@ -18,14 +18,20 @@ def run():
     viewVessel = viewVesselMd.viewVessel('modules/resource/viewVessel.png')
     viewBase = viewBaseMd.viewBase('modules/resource/viewBase.png')
 
+    # 设置容器包含父子结构
     mainView.add_son_view(viewVessel)
     viewVessel.add_son_view(viewBase)
 
+    # 设置偏移
+    viewVessel.setPos(5,5)
+    viewBase.setPos(5,5)
     
     while True:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit(0)
         # 界面绘制
         mainView.draw()
-        print(1)
-        time.sleep(1)
+        # time.sleep(1)
 
 run()

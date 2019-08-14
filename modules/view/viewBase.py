@@ -50,3 +50,6 @@ class viewBase():
             self.image_obj = tmp_obj
             self.height = tmp_obj.get_height()
             self.wide = tmp_obj.get_width()
+    def setPos(self, x, y):
+        self.x = x
+        self.y = y

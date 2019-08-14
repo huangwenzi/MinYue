@@ -26,9 +26,11 @@ class viewVessel(viewBaseMd.viewBase):
     # pos: 上一层的坐标偏移
     def draw(self, view_obj, pos):
         super(viewVessel, self).draw(view_obj, pos)
+        x = self.x + pos[0]
+        y = self.y + pos[0]
         # 绘制子视图
         for tmp_view in self.son_view_arr:
-            tmp_view.draw(view_obj, [pos[0], pos[1]])
+            tmp_view.draw(view_obj, [x, y])
     # 添加子视图
     # view_obj: 子视图对象
     def add_son_view(self, view_obj):
