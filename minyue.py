@@ -19,19 +19,23 @@ def run():
     viewBase = viewBaseMd.viewBase('modules/resource/viewBase.png')
 
     # 设置容器包含父子结构
-    mainView.add_son_view(viewVessel)
-    viewVessel.add_son_view(viewBase)
+    mainViewMd.MainView.add_son_view(mainView, viewVessel)
+    viewVesselMd.viewVessel.add_son_view(viewVessel, viewBase)
 
     # 设置偏移
-    viewVessel.setPos(5,5)
-    viewBase.setPos(5,5)
+    viewVesselMd.viewVessel.setPos(viewVessel, 5,5)
+    viewBaseMd.viewBase.setPos(viewBase, 5,5)
     
     while True:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
         # 界面绘制
-        mainView.draw()
+        mainViewMd.MainView.draw(mainView)
         # time.sleep(1)
+        # 处理鼠标事件
+        # imageMgr.mouse_event()
+        # 检查热更
+
 
 run()

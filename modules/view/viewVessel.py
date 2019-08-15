@@ -5,9 +5,6 @@ import pygame
 # 项目模块
 import modules.view.viewBase as viewBaseMd
 
-# draw: 主界面绘制
-# add_son_view: 添加子视图
-
 # 最基础的视图容器
 class viewVessel(viewBaseMd.viewBase):
     
@@ -24,14 +21,17 @@ class viewVessel(viewBaseMd.viewBase):
     # 重写子类绘制
     # view_obj: 调用绘制对象（一般为主视图）
     # pos: 上一层的坐标偏移
-    def draw(self, view_obj, pos):
-        super(viewVessel, self).draw(view_obj, pos)
+    @staticmethod
+    def draw(self, view_obj, pos, is_break):
+        super(viewVessel, self).draw(self, view_obj, pos)
         x = self.x + pos[0]
         y = self.y + pos[0]
         # 绘制子视图
         for tmp_view in self.son_view_arr:
-            tmp_view.draw(view_obj, [x, y])
+            tmp_view.draw(tmp_view, view_obj, [x, y])
+
     # 添加子视图
     # view_obj: 子视图对象
+    @staticmethod
     def add_son_view(self, view_obj):
         self.son_view_arr.append(view_obj)

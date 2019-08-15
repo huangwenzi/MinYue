@@ -7,11 +7,6 @@ import pygame
 # 项目模块
 import modules.view.viewVessel as viewVesselMd
 
-# 图像设置函数
-# draw: 主界面绘制
-# set_background: 设置背景图
-# add_son_view: 添加子视图
-
 # 这是主界面
 class MainView(viewVesselMd.viewVessel):
     # 设置
@@ -28,7 +23,7 @@ class MainView(viewVesselMd.viewVessel):
         viewVesselMd.viewVessel.__init__(self, image_path)
 
         pygame.display.set_caption(self.name)
-        self.set_background(self.image_path)
+        self.set_background(self, self.image_path)
         self.view_obj = pygame.display.set_mode((self.height, self.wide))
         self.fps = 0.5
         self.LastUpdate = time.time()
@@ -37,6 +32,7 @@ class MainView(viewVesselMd.viewVessel):
     # 图像设置函数
     # 主界面绘制
     # 也是调用其他界面绘制的地方
+    @staticmethod
     def draw(self):
         # 根据帧率刷新
         now = time.time()

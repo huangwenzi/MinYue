@@ -3,12 +3,13 @@
 # 三方模块
 import pygame
 # 项目模块
-from enums.game_enum import game_enum
+from modules.config.enum import mouse_enum
+
 
 # 鼠标事件的返回
 class Postion():
     def __init__(self):
-        self.type = game_enum.mouse.click_free
+        self.type = mouse_enum.click_free
         self.x = 0
         self.y = 0
 
@@ -29,8 +30,8 @@ class Mouse():
         ret.y = position[1]
         if pressde[0]:
             self.left_set = True
-            ret.type = game_enum.mouse.click_down
+            ret.type = mouse_enum.click_down
         elif pressde[0] == 0 and self.left_set == True:
             self.left_set = False
-            ret.type = game_enum.mouse.click_open
+            ret.type = mouse_enum.click_open
         return ret
