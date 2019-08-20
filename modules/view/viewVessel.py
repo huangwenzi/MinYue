@@ -47,6 +47,7 @@ class viewVessel(viewBaseMd.viewBase):
             for tmp_view in self.son_view_arr:
                 tmp_ret = tmp_view.check_click(tmp_view, click_pos, father_pos)
                 if tmp_ret:
+                    # 把点击的图像置顶(暂时没做)
                     return tmp_ret
             return ret
         
