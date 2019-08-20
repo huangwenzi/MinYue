@@ -66,7 +66,7 @@ class viewBase():
             self.width = tmp_obj.get_width()
     # 设置位置
     @staticmethod
-    def setPos(self, x, y):
+    def set_pos(self, x, y):
         self.x = x
         self.y = y
 

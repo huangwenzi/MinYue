@@ -26,8 +26,8 @@ def run():
     # viewVesselMd.viewVessel.add_son_view(viewVessel, viewBase)
 
     # # 设置偏移
-    # viewVesselMd.viewVessel.setPos(viewVessel, 5,5)
-    # viewBaseMd.viewBase.setPos(viewBase, 5,5)
+    # viewVesselMd.viewVessel.set_pos(viewVessel, 5,5)
+    # viewBaseMd.viewBase.set_pos(viewBase, 5,5)
 
     # viewBase_1 = viewBaseMd.viewBase('qinShi/resource/view/保存.png')
     # viewBase_2 = viewBaseMd.viewBase('qinShi/resource/view/背包.png')
@@ -36,7 +36,7 @@ def run():
     mainView = mainViewMd.MainView('qinShi/resource/screen/0.jpg')
     # mainView.add_son_view(mainView, viewBase_1)
     # mainView.add_son_view(mainView, viewBase_2)
-    # viewBase_2.setPos(viewBase_2, 20,20)
+    # viewBase_2.set_pos(viewBase_2, 20,20)
     # 初始化界面功能
     QSmainView = QSmainViewMd.MainView(mainView)
 
