@@ -44,4 +44,9 @@ class MainView(viewVesselMd.viewVessel):
         # 更新刷新时间
         self.LastUpdate = now
 
-
+    # 获取点击的对象
+    @staticmethod
+    def check_click(self, click_pos, father_pos):
+        # 是否在范围内
+        ret = super(MainView, self).check_click(self, click_pos, father_pos)
+        return ret

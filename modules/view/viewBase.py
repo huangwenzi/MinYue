@@ -16,11 +16,12 @@ class viewBase():
     height = 0  
     # 宽
     wide = 0  
-    # 背景图
-    image_path = "" 
     # 相对父窗口左上角偏移
     x = 0   
     y = 0
+    # 背景图
+    image_path = "" 
+    
 
     # 视图对象
     # 图片对象
@@ -71,4 +72,14 @@ class viewBase():
 
     # 注册事件
     # 注册点击
-    # def 
+    @staticmethod
+    def set_click_event(self, func):
+        self.click_fun = func
+    # 检查是否在鼠标点击范围内
+    @staticmethod
+    def check_click(self, click_pos, father_pos):
+        x = father_pos[0] + self.x
+        y = father_pos[1] + self.y
+        if self.x < click_pos.x and (self.x + self.width) > click_pos.x and self.y < click_pos.y and (self.y + self.height) > click_pos.y:
+            return self
+        return None

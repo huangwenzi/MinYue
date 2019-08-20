@@ -29,9 +29,25 @@ class viewVessel(viewBaseMd.viewBase):
         # 绘制子视图
         for tmp_view in self.son_view_arr:
             tmp_view.draw(tmp_view, view_obj, [x, y])
-
     # 添加子视图
     # view_obj: 子视图对象
     @staticmethod
     def add_son_view(self, view_obj):
         self.son_view_arr.append(view_obj)
+    
+    # 获取点击的对象
+    @staticmethod
+    def check_click(self, click_pos, father_pos):
+        # 是否在范围内
+        ret = super(viewVessel, self).check_click(self, click_pos, father_pos)
+        if ret:
+            # 是否在子视图内
+            father_pos[0] += self.x
+            father_pos[1] += self.y
+            for tmp_view in self.son_view_arr:
+                tmp_ret = tmp_view.check_click(tmp_view, click_pos, father_pos)
+                if tmp_ret:
+                    return tmp_ret
+            return ret
+        
+        return None
