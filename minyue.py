@@ -9,7 +9,9 @@ import pygame
 import modules.view.mainView as mainViewMd
 import modules.view.viewVessel as viewVesselMd
 import modules.view.viewBase as viewBaseMd
-
+import modules.control.hotUp as hotUpMd
+import modules.control.mouse as mouseMd
+from modules.config.enum import mouse_enum
 
 # 开始运行文件
 def run():
@@ -32,9 +34,14 @@ def run():
                     sys.exit(0)
         # 界面绘制
         mainViewMd.MainView.draw(mainView)
-        # time.sleep(1)
+        
         # 处理鼠标事件
-        # imageMgr.mouse_event()
+        ret_mouse = mouseMd.Mouse.mouse_event()
+        if ret_mouse.type == mouse_enum.click_open:
+            click_ret = mainViewMd.MainView.check_click(mainView, ret_mouse, [0,0])
+            if click_ret.click_func:
+                click_ret.click_func()
+
         # 检查热更
 
 
