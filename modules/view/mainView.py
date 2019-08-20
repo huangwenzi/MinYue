@@ -24,7 +24,7 @@ class MainView(viewVesselMd.viewVessel):
 
         pygame.display.set_caption(self.name)
         self.set_background(self, self.image_path)
-        self.view_obj = pygame.display.set_mode((self.height, self.wide))
+        self.view_obj = pygame.display.set_mode((self.height, self.width))
         self.fps = 0.5
         self.LastUpdate = time.time()
 

@@ -15,7 +15,7 @@ class viewBase():
     # 高
     height = 0  
     # 宽
-    wide = 0  
+    width = 0  
     # 相对父窗口左上角偏移
     x = 0   
     y = 0
@@ -29,7 +29,7 @@ class viewBase():
 
     # 事件
     # 点击事件
-    click_fun = None  
+    click_func = None  
     
     # 初始化
     # image_path: 图片地址
@@ -38,12 +38,12 @@ class viewBase():
         if tmp_obj:
             self.name = ""
             self.height = tmp_obj.get_height()
-            self.wide = tmp_obj.get_width()
+            self.width = tmp_obj.get_width()
             self.image_path = image_path
             self.x = 0
             self.y = 0
             self.image_obj = tmp_obj
-            self.click_fun = None
+            self.click_func = None
 
     # 图像相关函数
     # 绘制自身
@@ -63,7 +63,7 @@ class viewBase():
             self.image_path = image_path
             self.image_obj = tmp_obj
             self.height = tmp_obj.get_height()
-            self.wide = tmp_obj.get_width()
+            self.width = tmp_obj.get_width()
     # 设置位置
     @staticmethod
     def setPos(self, x, y):
@@ -74,7 +74,7 @@ class viewBase():
     # 注册点击
     @staticmethod
     def set_click_event(self, func):
-        self.click_fun = func
+        self.click_func = func
     # 检查是否在鼠标点击范围内
     @staticmethod
     def check_click(self, click_pos, father_pos):
