@@ -26,14 +26,16 @@ class viewVessel(viewBaseMd.viewBase):
         super(viewVessel, self).draw(self, view_obj, pos)
         x = self.x + pos[0]
         y = self.y + pos[0]
-        # 绘制子视图
-        for tmp_view in self.son_view_arr:
+        # 绘制子视图,从后面开始绘制
+        son_len = len(self.son_view_arr)
+        for idx in range(son_len):
+            tmp_view = self.son_view_arr[son_len - idx - 1]
             tmp_view.draw(tmp_view, view_obj, [x, y])
     # 添加子视图
     # view_obj: 子视图对象
     @staticmethod
     def add_son_view(self, view_obj):
-        self.son_view_arr.append(view_obj)
+        self.son_view_arr.insert(0, view_obj)
     
     # 获取点击的对象
     @staticmethod
@@ -44,11 +46,15 @@ class viewVessel(viewBaseMd.viewBase):
             # 是否在子视图内
             father_pos[0] += self.x
             father_pos[1] += self.y
+            idx = 0
             for tmp_view in self.son_view_arr:
                 tmp_ret = tmp_view.check_click(tmp_view, click_pos, father_pos)
                 if tmp_ret:
-                    # 把点击的图像置顶(暂时没做)
+                    if idx != 0:
+                        tmp_obj = self.son_view_arr.pop(idx)
+                        self.son_view_arr.insert(0, tmp_obj)
                     return tmp_ret
+                idx += 1
             return ret
         
         return None
