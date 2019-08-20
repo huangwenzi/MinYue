@@ -38,7 +38,7 @@ class MainView(viewVesselMd.viewVessel):
         now = time.time()
         if self.LastUpdate + self.fps > now:
             return
-        super(MainView, self).draw(self.view_obj, (0, 0))
+        super(MainView, self).draw(self, self.view_obj, (0, 0))
         pygame.display.flip()
         
         # 更新刷新时间

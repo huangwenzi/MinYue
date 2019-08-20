@@ -22,7 +22,7 @@ class viewVessel(viewBaseMd.viewBase):
     # view_obj: 调用绘制对象（一般为主视图）
     # pos: 上一层的坐标偏移
     @staticmethod
-    def draw(self, view_obj, pos, is_break):
+    def draw(self, view_obj, pos):
         super(viewVessel, self).draw(self, view_obj, pos)
         x = self.x + pos[0]
         y = self.y + pos[0]
