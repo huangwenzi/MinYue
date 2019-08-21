@@ -33,7 +33,7 @@ def run():
     # viewBase_2 = viewBaseMd.viewBase('qinShi/resource/view/背包.png')
 
     # 创建基础界面
-    mainView = mainViewMd.MainView('qinShi/resource/screen/0.jpg')
+    mainView = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
     # mainView.add_son_view(mainView, viewBase_1)
     # mainView.add_son_view(mainView, viewBase_2)
     # viewBase_2.set_pos(viewBase_2, 20,20)
@@ -55,7 +55,7 @@ def run():
         if ret_mouse.type == mouse_enum.click_open:
             click_ret = QSmainView.main_view.check_click(QSmainView.main_view, ret_mouse, [0,0])
             if click_ret.click_func:
-                click_ret.click_func()
+                click_ret.click_func(click_ret)
 
         # 检查热更
 
