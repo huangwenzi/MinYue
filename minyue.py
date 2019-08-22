@@ -55,7 +55,7 @@ def run():
         if ret_mouse.type == mouse_enum.click_open:
             click_ret = QSmainView.main_view.check_click(QSmainView.main_view, ret_mouse, [0,0])
             if click_ret.click_func:
-                click_ret.click_func(click_ret)
+                click_ret.click_star(click_ret)
 
         # 检查热更
 

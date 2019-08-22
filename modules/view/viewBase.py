@@ -30,6 +30,8 @@ class viewBase():
     # 事件
     # 点击事件
     click_func = None  
+    # 执行的参数
+    click_agv = None
     
     # 初始化
     # image_path: 图片地址
@@ -73,8 +75,9 @@ class viewBase():
     # 注册事件
     # 注册点击
     @staticmethod
-    def set_click_event(self, func):
+    def set_click_event(self, func, agv = None):
         self.click_func = func
+        self.click_agv = agv
     # 检查是否在鼠标点击范围内
     @staticmethod
     def check_click(self, click_pos, father_pos):
@@ -83,3 +86,7 @@ class viewBase():
         if self.x < click_pos.x and (self.x + self.width) > click_pos.x and self.y < click_pos.y and (self.y + self.height) > click_pos.y:
             return self
         return None
+    # 执行点击函数
+    @staticmethod
+    def click_star(self):
+        self.click_func(self.click_agv)
