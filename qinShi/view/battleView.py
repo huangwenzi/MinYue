@@ -4,6 +4,7 @@
 import modules.view.viewVessel as viewVesselMd
 import modules.view.viewBase as viewBaseMd
 import modules.control.instanceMgr as instanceMgrMd
+import qinShi.view.actorView as actorViewMd
 
 # 初始位置
 Init_pos = [0,0]
@@ -58,6 +59,15 @@ class BattleView(viewVesselMd.viewVessel):
         self.add_son_view(self, self.exit_image_obj)
         # 设置退出函数
         self.exit_image_obj.set_click_event(self.exit_image_obj, self.click_exit, self)
+
+        # 设置战斗
+        # 添加玩家角色
+        self.self_actor_obj = []
+        player_ins = instanceMgrMd.instanceMgr.get_ins("Player")
+        for tmp_actor in player_ins.playInfo["actor_arr"]:
+            tmp_actor_obj = actorViewMd.ActorView(tmp_actor["id"], tmp_actor["lv"])
+            self.self_actor_obj.append(tmp_actor_obj)
+            self.add_son_view(self, tmp_actor_obj)
 
     # 点击退出
     @staticmethod
