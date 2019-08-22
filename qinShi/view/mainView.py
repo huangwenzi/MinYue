@@ -23,5 +23,5 @@ class MainView():
 
         # 初始化其他功能
         # 战斗视图
-        self.battle_view = battleViewMd.BattleView()
+        self.battle_view = battleViewMd.BattleView.getInstance()
         main_view.add_son_view(main_view, self.battle_view)
