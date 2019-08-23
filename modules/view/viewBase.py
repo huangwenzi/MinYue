@@ -21,6 +21,8 @@ class viewBase():
     y = 0
     # 背景图
     image_path = "" 
+    # 是否显示
+    show = False
     
 
     # 视图对象
@@ -46,6 +48,7 @@ class viewBase():
             self.y = 0
             self.image_obj = tmp_obj
             self.click_func = None
+            self.show = True
 
     # 图像相关函数
     # 绘制自身
@@ -53,6 +56,8 @@ class viewBase():
     # pos: 上一层的坐标偏移
     @staticmethod
     def draw(self, view_obj, pos):
+        if not self.show:
+            return
         x = self.x + pos[0]
         y = self.y + pos[0]
         view_obj.blit(self.image_obj, (x, y))
@@ -81,6 +86,8 @@ class viewBase():
     # 检查是否在鼠标点击范围内
     @staticmethod
     def check_click(self, click_pos, father_pos):
+        if not self.show:
+            return None
         x = father_pos[0] + self.x
         y = father_pos[1] + self.y
         if self.x < click_pos.x and (self.x + self.width) > click_pos.x and self.y < click_pos.y and (self.y + self.height) > click_pos.y:
