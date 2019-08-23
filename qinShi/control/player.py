@@ -4,7 +4,7 @@ import json
 import modules.control.instanceMgr as instanceMgrMd
 
 # 保存数据地址
-sava_path = "qinShi/playData/player_1.json"
+Sava_path = "qinShi/playData/player_1.json"
 
 # 玩家数据类
 class Player():
@@ -13,8 +13,8 @@ class Player():
     # 初始化
     def __init__(self):
         # 加载数据
-        with open(sava_path, 'r', encoding='utf-8', errors='ignore') as f:
-            self.playInfo = json.load(f)
+        with open(Sava_path, 'r', encoding='utf-8', errors='ignore') as f:
+            data = json.load(f)
 
 
     # 获取单例
@@ -27,3 +27,8 @@ class Player():
             instanceMgrMd.instanceMgr.set_ins(name, ins)
         return ins
         
+    # 保存数据
+    @staticmethod
+    def sava_data(self):
+        with open(Sava_path, 'w', encoding='utf-8', errors='ignore') as f_out:
+            f_out.write(json.dumps(self.playInfo, ensure_ascii=False, indent=2))
