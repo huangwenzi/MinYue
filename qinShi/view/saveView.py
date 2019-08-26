@@ -7,12 +7,12 @@ import modules.control.instanceMgr as instanceMgrMd
 import qinShi.view.actorView as actorViewMd
 
 # 初始位置
-Init_pos = [0,0]
+Init_pos = [50,50]
 # 保存图标
-Battle_icon = "qinShi/resource/view/sava.png"
+Battle_icon = "qinShi/resource/view/save.png"
 
 # 保存图标
-class BattleView(viewBaseMd.viewBase):
+class SaveView(viewBaseMd.viewBase):
     pass
 
     # 初始化战斗界面
