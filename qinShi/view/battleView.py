@@ -29,7 +29,7 @@ class BattleView(viewVesselMd.viewVessel):
         self.set_pos(self, Init_pos[0], Init_pos[1])
 
         # 设置鼠标事件
-        self.set_click_event(self, BattleView.click_battle, self)
+        self.set_click_event(self, BattleView.click_event, self)
 
     # 获取单例
     @staticmethod
@@ -42,9 +42,9 @@ class BattleView(viewVesselMd.viewVessel):
         return ins
 
     # 事件函数
-    # 点击战斗
+    # 点击事件
     @staticmethod
-    def click_battle(self):
+    def click_event(self):
         # 设置战斗背景图
         self.set_background(self, Battle_background)
         self.set_pos(self, Init_pos[0], Init_pos[1])

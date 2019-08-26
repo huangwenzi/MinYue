@@ -4,6 +4,7 @@
 
 # 项目模块
 import qinShi.view.battleView as battleViewMd
+import qinShi.view.saveView as saveViewMd
 import qinShi.control.player as playerMd
 
 
@@ -26,5 +27,5 @@ class MainView():
         self.battle_view = battleViewMd.BattleView.getInstance()
         main_view.add_son_view(main_view, self.battle_view)
         # 保存功能
-        self.battle_view = battleViewMd.BattleView.getInstance()
-        main_view.add_son_view(main_view, self.battle_view)
+        self.save_view = saveViewMd.SaveView.getInstance()
+        main_view.add_son_view(main_view, self.save_view)
