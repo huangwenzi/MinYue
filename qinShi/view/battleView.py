@@ -18,7 +18,14 @@ Battle_icon = "qinShi/resource/view/battle.png"
 
 # 战斗界面视图
 class BattleView(viewVesselMd.viewVessel):
-    pass
+
+    # 图像对象
+    # 退出按钮
+    exit_image_obj = None
+    # 玩家角色
+    self_actor_obj = None
+    # 敌对角色
+    enemy_actor_obj = None
 
     # 初始化战斗界面
     def __init__(self):
@@ -29,7 +36,7 @@ class BattleView(viewVesselMd.viewVessel):
         self.set_pos(self, Init_pos[0], Init_pos[1])
 
         # 设置鼠标事件
-        self.set_click_event(self, BattleView.click_event, self)
+        self.set_click_event(self, BattleView.click_event)
 
     # 获取单例
     @staticmethod
@@ -70,15 +77,19 @@ class BattleView(viewVesselMd.viewVessel):
             self.self_actor_obj.append(tmp_actor_obj)
             self.add_son_view(self, tmp_actor_obj)
 
+        # 添加敌对角色
+        self.enemy_actor_obj = []
+
+
     # 点击退出
     @staticmethod
-    def click_exit(self):
+    def click_exit(self, battle_view):
         print("click_exit")
         # 恢复背景图
-        self.set_background(self, Battle_icon)
+        battle_view.set_background(battle_view, Battle_icon)
         # 设置位置
-        self.set_pos(self, Init_pos[0], Init_pos[1])
+        battle_view.set_pos(battle_view, Init_pos[0], Init_pos[1])
 
         # 删除子视图
-        del self.son_view_arr
-        self.son_view_arr = []
+        del battle_view.son_view_arr
+        battle_view.son_view_arr = []

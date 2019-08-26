@@ -24,7 +24,7 @@ class SaveView(viewBaseMd.viewBase):
         self.set_pos(self, Init_pos[0], Init_pos[1])
 
         # 设置鼠标事件
-        self.set_click_event(self, SaveView.click_event, self)
+        self.set_click_event(self, SaveView.click_event)
 
     # 获取单例
     @staticmethod
