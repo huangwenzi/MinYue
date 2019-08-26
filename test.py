@@ -1,25 +1,12 @@
-# class A():
-#     arr = []
-#     def __init__(self):
-#         self.arr = []
-
-#     @staticmethod
-#     def add(self, tmp):
-#         self.arr.append(tmp)
 
 
-# class B(A):
-
-#     def add(self, tmp):
-#         super(B, self).add(tmp)
-    
-# a = A()
-# a_1 = A()
-# a.add(a, 1)
-# print(a.arr)
-# print(a_1.arr)
-
-
-son_arr = range(2)
-for idx in son_arr:
-    print(idx)
+# 修改图片大小
+import tool.imageTool as imageToolMd
+path = [
+    "qinShi/resource/view/actor.png",
+    "qinShi/resource/view/battle.png",
+    "qinShi/resource/view/formation.png",
+    "qinShi/resource/view/knapsack.png",
+    "qinShi/resource/view/save.png",
+]
+imageToolMd.ImageTool.change_size(path, [50,50])
