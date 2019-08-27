@@ -12,7 +12,7 @@ Init_pos = [50,50]
 Save_icon = "qinShi/resource/view/save.png"
 
 # 保存图标
-class SaveView(viewBaseMd.viewBase):
+class SaveView(viewBaseMd.ViewBase):
     pass
 
     # 初始化战斗界面

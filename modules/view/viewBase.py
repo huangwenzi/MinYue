@@ -8,7 +8,7 @@ import pygame
 
 
 # 界面基类
-class viewBase():
+class ViewBase():
     # 显示设置
     # 视图名
     name = "" 

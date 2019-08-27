@@ -8,7 +8,7 @@ import modules.view.viewBase as viewBaseMd
 Close_button_path = "modules/resource/exit.png"
 
 # 最基础的视图容器
-class ViewVessel(viewBaseMd.viewBase):
+class ViewVessel(viewBaseMd.ViewBase):
     
     # 视图对象
     # 关闭按钮
@@ -20,7 +20,7 @@ class ViewVessel(viewBaseMd.viewBase):
     # 初始化
     def __init__(self, image_path):
         #调用父类的构函
-        viewBaseMd.viewBase.__init__(self, image_path)
+        viewBaseMd.ViewBase.__init__(self, image_path)
         self.son_view_arr = []
         self.close_view = None
         
@@ -48,17 +48,17 @@ class ViewVessel(viewBaseMd.viewBase):
     # 设置关闭按钮
     @staticmethod
     def add_close_Button(self, func, argv = None):
-        self.close_view = viewBaseMd.viewBase(Close_button_path)
+        self.close_view = viewBaseMd.ViewBase(Close_button_path)
         if argv:
-            viewBaseMd.viewBase.set_click_event(self.close_view, func, argv)
+            viewBaseMd.ViewBase.set_click_event(self.close_view, func, argv)
         else:
-            viewBaseMd.viewBase.set_click_event(self.close_view, func)
+            viewBaseMd.ViewBase.set_click_event(self.close_view, func)
         # 设置位置
         exit_width = self.close_view.width
         exit_height = self.close_view.height
         x = self.width - exit_width
         y = 0
-        viewBaseMd.viewBase.set_pos(self.close_view, x, y)
+        viewBaseMd.ViewBase.set_pos(self.close_view, x, y)
         ViewVessel.add_son_view(self, self.close_view)
     
     # 获取点击的对象
