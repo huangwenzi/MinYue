@@ -5,17 +5,24 @@ import pygame
 # 项目模块
 import modules.view.viewBase as viewBaseMd
 
+Close_button_path = "modules/resource/exit.png"
+
 # 最基础的视图容器
-class viewVessel(viewBaseMd.viewBase):
+class ViewVessel(viewBaseMd.viewBase):
     
     # 视图对象
-    son_view_arr = [] # 子视图数组
+    # 关闭按钮
+    close_view = None
+    # 子视图数组
+    son_view_arr = [] 
+    
 
     # 初始化
     def __init__(self, image_path):
         #调用父类的构函
         viewBaseMd.viewBase.__init__(self, image_path)
         self.son_view_arr = []
+        self.close_view = None
         
     # 绘制
     # 重写子类绘制
@@ -25,7 +32,7 @@ class viewVessel(viewBaseMd.viewBase):
     def draw(self, view_obj, pos):
         if not self.show:
             return
-        super(viewVessel, self).draw(self, view_obj, pos)
+        super(ViewVessel, self).draw(self, view_obj, pos)
         x = self.x + pos[0]
         y = self.y + pos[0]
         # 绘制子视图,从后面开始绘制
@@ -38,12 +45,27 @@ class viewVessel(viewBaseMd.viewBase):
     @staticmethod
     def add_son_view(self, view_obj):
         self.son_view_arr.insert(0, view_obj)
+    # 设置关闭按钮
+    @staticmethod
+    def add_close_Button(self, func, argv = None):
+        self.close_view = viewBaseMd.viewBase(Close_button_path)
+        if argv:
+            viewBaseMd.viewBase.set_click_event(self.close_view, func, argv)
+        else:
+            viewBaseMd.viewBase.set_click_event(self.close_view, func)
+        # 设置位置
+        exit_width = self.close_view.width
+        exit_height = self.close_view.height
+        x = self.width - exit_width
+        y = 0
+        viewBaseMd.viewBase.set_pos(self.close_view, x, y)
+        ViewVessel.add_son_view(self, self.close_view)
     
     # 获取点击的对象
     @staticmethod
     def check_click(self, click_pos, father_pos):
         # 是否在范围内
-        ret = super(viewVessel, self).check_click(self, click_pos, father_pos)
+        ret = super(ViewVessel, self).check_click(self, click_pos, father_pos)
         if ret:
             # 是否在子视图内
             father_pos[0] += self.x
@@ -52,6 +74,7 @@ class viewVessel(viewBaseMd.viewBase):
             for tmp_view in self.son_view_arr:
                 tmp_ret = tmp_view.check_click(tmp_view, click_pos, father_pos)
                 if tmp_ret:
+                    # 设置点击的视图在最上层
                     if idx != 0:
                         tmp_obj = self.son_view_arr.pop(idx)
                         self.son_view_arr.insert(0, tmp_obj)

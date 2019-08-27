@@ -17,7 +17,7 @@ Exit_icon = "qinShi/resource/view/exit.png"
 Battle_icon = "qinShi/resource/view/battle.png"
 
 # 战斗界面视图
-class BattleView(viewVesselMd.viewVessel):
+class BattleView(viewVesselMd.ViewVessel):
 
     # 图像对象
     # 退出按钮
@@ -30,13 +30,13 @@ class BattleView(viewVesselMd.viewVessel):
     # 初始化战斗界面
     def __init__(self):
         #调用父类的构函
-        viewVesselMd.viewVessel.__init__(self, Battle_icon)
+        viewVesselMd.ViewVessel.__init__(self, Battle_icon)
 
         # 设置位置
-        self.set_pos(self, Init_pos[0], Init_pos[1])
+        BattleView.set_pos(self, Init_pos[0], Init_pos[1])
 
         # 设置鼠标事件
-        self.set_click_event(self, BattleView.click_event)
+        BattleView.set_click_event(self, BattleView.click_event)
 
     # 获取单例
     @staticmethod
@@ -53,20 +53,11 @@ class BattleView(viewVesselMd.viewVessel):
     @staticmethod
     def click_event(self):
         # 设置战斗背景图
-        self.set_background(self, Battle_background)
-        self.set_pos(self, Init_pos[0], Init_pos[1])
-
-        # 设置退出按钮
-        # 设置退出图标和位置
-        self.exit_image_obj = viewBaseMd.viewBase(Exit_icon)
-        exit_width = self.exit_image_obj.width
-        exit_height = self.exit_image_obj.height
-        x = self.width - exit_width
-        y = 0
-        self.exit_image_obj.set_pos(self.exit_image_obj, x, y)
-        self.add_son_view(self, self.exit_image_obj)
-        # 设置退出函数
-        self.exit_image_obj.set_click_event(self.exit_image_obj, self.click_exit, self)
+        BattleView.set_background(self, Battle_background)
+        BattleView.set_pos(self, Init_pos[0], Init_pos[1])
+        # 设置关闭按钮
+        BattleView.add_close_Button(self, self.click_exit, self)
+        
 
         # 设置战斗
         # 添加玩家角色
@@ -75,7 +66,7 @@ class BattleView(viewVesselMd.viewVessel):
         for tmp_actor in player_ins.playInfo["actor_arr"]:
             tmp_actor_obj = actorViewMd.ActorView(tmp_actor["id"], tmp_actor["lv"])
             self.self_actor_obj.append(tmp_actor_obj)
-            self.add_son_view(self, tmp_actor_obj)
+            BattleView.add_son_view(self, tmp_actor_obj)
 
         # 添加敌对角色
         self.enemy_actor_obj = []
@@ -93,3 +84,5 @@ class BattleView(viewVesselMd.viewVessel):
         # 删除子视图
         del battle_view.son_view_arr
         battle_view.son_view_arr = []
+        # 删除关闭按钮
+        self.close_view = None

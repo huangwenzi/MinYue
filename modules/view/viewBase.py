@@ -28,6 +28,7 @@ class viewBase():
     # 视图对象
     # 图片对象
     image_obj = None    
+    
 
     # 事件
     # 点击事件执行函数
@@ -49,6 +50,7 @@ class viewBase():
             self.image_obj = tmp_obj
             self.click_func = None
             self.show = True
+            
 
     # 图像相关函数
     # 绘制自身

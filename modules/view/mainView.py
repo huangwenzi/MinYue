@@ -8,7 +8,7 @@ import pygame
 import modules.view.viewVessel as viewVesselMd
 
 # 这是主界面
-class MainView(viewVesselMd.viewVessel):
+class MainView(viewVesselMd.ViewVessel):
     # 设置
     fps = 1 # 帧率
     LastUpdate = 0  # 上次刷新界面时间
@@ -20,7 +20,7 @@ class MainView(viewVesselMd.viewVessel):
     # 初始化一个主界面
     def __init__(self, image_path):
         #调用父类的构函
-        viewVesselMd.viewVessel.__init__(self, image_path)
+        viewVesselMd.ViewVessel.__init__(self, image_path)
 
         pygame.display.set_caption(self.name)
         self.set_background(self, self.image_path)

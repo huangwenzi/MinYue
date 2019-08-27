@@ -9,7 +9,7 @@ import qinShi.control.cfgMgr as cfgMgrMd
 
 
 # 角色视图
-class ActorView(viewVesselMd.viewVessel):
+class ActorView(viewVesselMd.ViewVessel):
     # 左边的站立图像资源
     left_stand = None
     # 左边的战斗图像资源
@@ -47,6 +47,6 @@ class ActorView(viewVesselMd.viewVessel):
         self.right_attack = right_attack
 
         #调用父类的构函
-        viewVesselMd.viewVessel.__init__(self, left_stand)
+        viewVesselMd.ViewVessel.__init__(self, left_stand)
         # 设置位置
         self.set_pos(self, 0, 0)
