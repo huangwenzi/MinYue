@@ -23,7 +23,7 @@ class MainView(viewVesselMd.ViewVessel):
         viewVesselMd.ViewVessel.__init__(self, image_path)
 
         pygame.display.set_caption(self.name)
-        self.set_background(self, self.image_path)
+        self.set_background(self.image_path)
         self.view_obj = pygame.display.set_mode((self.width, self.height))
         self.fps = 0.5
         self.LastUpdate = time.time()
@@ -46,8 +46,7 @@ class MainView(viewVesselMd.ViewVessel):
         self.LastUpdate = now
 
     # 获取点击的对象
-    @staticmethod
     def check_click(self, click_pos, father_pos):
         # 是否在范围内
-        ret = super(MainView, self).check_click(self, click_pos, father_pos)
+        ret = super(MainView, self).check_click(click_pos, father_pos)
         return ret

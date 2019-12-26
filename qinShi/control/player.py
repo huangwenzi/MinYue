@@ -29,7 +29,6 @@ class Player():
         return ins
         
     # 保存数据
-    @staticmethod
     def save_data(self):
         with open(Save_path, 'w', encoding='utf-8', errors='ignore') as f_out:
             f_out.write(json.dumps(self.playInfo, ensure_ascii=False, indent=2))

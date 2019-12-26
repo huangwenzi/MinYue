@@ -3,6 +3,7 @@
 
 
 # 项目模块
+import modules.control.instanceMgr as instanceMgrMd
 import qinShi.view.battleView as battleViewMd
 import qinShi.view.saveView as saveViewMd
 import qinShi.control.player as playerMd
@@ -25,7 +26,17 @@ class MainView():
         # 初始化其他功能
         # 战斗视图
         self.battle_view = battleViewMd.BattleView.getInstance()
-        main_view.add_son_view(main_view, self.battle_view)
+        main_view.add_son_view(self.battle_view)
         # 保存功能
         self.save_view = saveViewMd.SaveView.getInstance()
-        main_view.add_son_view(main_view, self.save_view)
+        main_view.add_son_view(self.save_view)
+
+    # 获取单例
+    @staticmethod
+    def getInstance(main_view):
+        name = "MainView"
+        ins = instanceMgrMd.instanceMgr.get_ins(name)
+        if not ins:
+            ins = MainView(main_view)
+            instanceMgrMd.instanceMgr.set_ins(name, ins)
+        return ins

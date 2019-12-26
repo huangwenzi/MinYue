@@ -33,10 +33,10 @@ class BattleView(viewVesselMd.ViewVessel):
         viewVesselMd.ViewVessel.__init__(self, Battle_icon)
 
         # 设置位置
-        BattleView.set_pos(self, Init_pos[0], Init_pos[1])
+        self.set_pos(Init_pos[0], Init_pos[1])
 
         # 设置鼠标事件
-        BattleView.set_click_event(self, BattleView.click_event)
+        self.set_click_event(self.click_event)
 
     # 获取单例
     @staticmethod
@@ -50,13 +50,12 @@ class BattleView(viewVesselMd.ViewVessel):
 
     # 事件函数
     # 点击事件
-    @staticmethod
     def click_event(self):
         # 设置战斗背景图
-        BattleView.set_background(self, Battle_background)
-        BattleView.set_pos(self, Init_pos[0], Init_pos[1])
+        self.set_background(Battle_background)
+        self.set_pos(Init_pos[0], Init_pos[1])
         # 设置关闭按钮
-        BattleView.add_close_Button(self, self.click_exit, self)
+        self.add_close_Button(self.click_exit, self)
         
 
         # 设置战斗
@@ -66,20 +65,19 @@ class BattleView(viewVesselMd.ViewVessel):
         for tmp_actor in player_ins.playInfo["actor_arr"]:
             tmp_actor_obj = actorViewMd.ActorView(tmp_actor["id"], tmp_actor["lv"])
             self.self_actor_obj.append(tmp_actor_obj)
-            BattleView.add_son_view(self, tmp_actor_obj)
+            self.add_son_view(tmp_actor_obj)
 
         # 添加敌对角色
         self.enemy_actor_obj = []
 
 
     # 点击退出
-    @staticmethod
     def click_exit(self, battle_view):
         print("click_exit")
         # 恢复背景图
-        battle_view.set_background(battle_view, Battle_icon)
+        battle_view.set_background(Battle_icon)
         # 设置位置
-        battle_view.set_pos(battle_view, Init_pos[0], Init_pos[1])
+        battle_view.set_pos(Init_pos[0], Init_pos[1])
 
         # 删除子视图
         del battle_view.son_view_arr

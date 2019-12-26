@@ -11,7 +11,7 @@ class CfgMgr():
 
     # 初始化
     def __init__(self):
-        self.actor_cfg = CfgMgr.load_json("qinShi/config/actor.json")
+        self.actor_cfg = self.load_json("qinShi/config/actor.json")
         
 
     # 获取单例
@@ -25,7 +25,6 @@ class CfgMgr():
         return ins
 
     # 加载json配置文件
-    @staticmethod
-    def load_json(path):
+    def load_json(self, path):
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             return json.load(f)

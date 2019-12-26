@@ -49,4 +49,4 @@ class ActorView(viewVesselMd.ViewVessel):
         #调用父类的构函
         viewVesselMd.ViewVessel.__init__(self, left_stand)
         # 设置位置
-        self.set_pos(self, 0, 0)
+        self.set_pos(0, 0)

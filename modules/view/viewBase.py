@@ -65,7 +65,6 @@ class ViewBase():
         view_obj.blit(self.image_obj, (x, y))
     # 设置背景图
     # image_path: 背景图地址
-    @staticmethod
     def set_background(self, image_path):
         tmp_obj = pygame.image.load(image_path)
         if tmp_obj:
@@ -74,19 +73,16 @@ class ViewBase():
             self.height = tmp_obj.get_height()
             self.width = tmp_obj.get_width()
     # 设置位置
-    @staticmethod
     def set_pos(self, x, y):
         self.x = x
         self.y = y
 
     # 注册事件
     # 注册点击
-    @staticmethod
     def set_click_event(self, func, argv = None):
         self.click_func = func
         self.click_argv = argv
     # 检查是否在鼠标点击范围内
-    @staticmethod
     def check_click(self, click_pos, father_pos):
         if not self.show:
             return None
@@ -98,9 +94,8 @@ class ViewBase():
     # 执行点击函数
     # self : 执行对象
     # argv : 传入参数
-    @staticmethod
     def click_star(self):
         if not self.click_argv:
-            self.click_func(self)
+            self.click_func()
         else:
-            self.click_func(self, self.click_argv)
+            self.click_func(self.click_argv)

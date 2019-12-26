@@ -42,37 +42,34 @@ class ViewVessel(viewBaseMd.ViewBase):
             tmp_view.draw(tmp_view, view_obj, [x, y])
     # 添加子视图
     # view_obj: 子视图对象
-    @staticmethod
     def add_son_view(self, view_obj):
         self.son_view_arr.insert(0, view_obj)
     # 设置关闭按钮
-    @staticmethod
     def add_close_Button(self, func, argv = None):
         self.close_view = viewBaseMd.ViewBase(Close_button_path)
         if argv:
-            viewBaseMd.ViewBase.set_click_event(self.close_view, func, argv)
+            self.close_view.set_click_event(func, argv)
         else:
-            viewBaseMd.ViewBase.set_click_event(self.close_view, func)
+            self.close_view.set_click_event(func)
         # 设置位置
         exit_width = self.close_view.width
         exit_height = self.close_view.height
         x = self.width - exit_width
         y = 0
-        viewBaseMd.ViewBase.set_pos(self.close_view, x, y)
-        ViewVessel.add_son_view(self, self.close_view)
+        self.close_view.set_pos(x, y)
+        self.add_son_view(self.close_view)
     
     # 获取点击的对象
-    @staticmethod
     def check_click(self, click_pos, father_pos):
-        # 是否在范围内
-        ret = super(ViewVessel, self).check_click(self, click_pos, father_pos)
+        # 自身是否在范围内
+        ret = super(ViewVessel, self).check_click(click_pos, father_pos)
         if ret:
             # 是否在子视图内
             father_pos[0] += self.x
             father_pos[1] += self.y
             idx = 0
             for tmp_view in self.son_view_arr:
-                tmp_ret = tmp_view.check_click(tmp_view, click_pos, father_pos)
+                tmp_ret = tmp_view.check_click(click_pos, father_pos)
                 if tmp_ret:
                     # 设置点击的视图在最上层
                     if idx != 0:
