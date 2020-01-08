@@ -8,13 +8,13 @@ import qinShi.view.actorView as actorViewMd
 import qinShi.control.player as playerMd
 
 # 初始位置
-Init_pos = [0,0]
+_init_pos = [0,0]
 # 战斗图
-Battle_background = "qinShi/resource/screen/battle.jpg"
+_battle_background = "qinShi/resource/screen/battle.jpg"
 # 退出图标
-Exit_icon = "qinShi/resource/view/exit.png"
+_exit_icon = "qinShi/resource/view/exit.png"
 # 战斗图标
-Battle_icon = "qinShi/resource/view/battle.png"
+_battle_icon = "qinShi/resource/view/battle.png"
 
 # 战斗界面视图
 class BattleView(viewVesselMd.ViewVessel):
@@ -30,10 +30,10 @@ class BattleView(viewVesselMd.ViewVessel):
     # 初始化战斗界面
     def __init__(self):
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, Battle_icon)
+        viewVesselMd.ViewVessel.__init__(self, _battle_icon)
 
         # 设置位置
-        self.set_pos(Init_pos[0], Init_pos[1])
+        self.set_pos(_init_pos[0], _init_pos[1])
 
         # 设置鼠标事件
         self.set_click_event(self.click_event)
@@ -52,8 +52,8 @@ class BattleView(viewVesselMd.ViewVessel):
     # 点击事件
     def click_event(self):
         # 设置战斗背景图
-        self.set_background(Battle_background)
-        self.set_pos(Init_pos[0], Init_pos[1])
+        self.set_background(_battle_background)
+        self.set_pos(_init_pos[0], _init_pos[1])
         # 设置关闭按钮
         self.add_close_Button(self.click_exit, self)
         
@@ -73,11 +73,10 @@ class BattleView(viewVesselMd.ViewVessel):
 
     # 点击退出
     def click_exit(self, battle_view):
-        print("click_exit")
         # 恢复背景图
-        battle_view.set_background(Battle_icon)
+        battle_view.set_background(_battle_icon)
         # 设置位置
-        battle_view.set_pos(Init_pos[0], Init_pos[1])
+        battle_view.set_pos(_init_pos[0], _init_pos[1])
 
         # 删除子视图
         del battle_view.son_view_arr

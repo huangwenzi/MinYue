@@ -6,6 +6,7 @@
 import modules.control.instanceMgr as instanceMgrMd
 import qinShi.view.battleView as battleViewMd
 import qinShi.view.saveView as saveViewMd
+import qinShi.view.takeCardView as takeCardViewMd
 import qinShi.control.player as playerMd
 
 
@@ -30,6 +31,9 @@ class MainView():
         # 保存功能
         self.save_view = saveViewMd.SaveView.getInstance()
         main_view.add_son_view(self.save_view)
+        # 抽卡功能
+        self.take_card_view = takeCardViewMd.TakeCardView.getInstance()
+        main_view.add_son_view(self.take_card_view)
 
     # 获取单例
     @staticmethod

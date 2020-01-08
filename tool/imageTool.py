@@ -8,7 +8,7 @@ from PIL import Image
 class ImageTool():
     pass
 
-    def __init__():
+    def __init__(self):
         pass 
                      
     # 修改图片大小

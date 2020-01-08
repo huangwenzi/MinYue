@@ -1,7 +1,4 @@
 
 
-a = None
-if not a:
-    print(1)
-if a:
-    print(2)
+for target_list in expression_list:
+    pass
