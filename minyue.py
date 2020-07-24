@@ -23,7 +23,6 @@ def run():
     mainView = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
     # 初始化界面功能
     QSmainView = QSmainViewMd.MainView.getInstance(mainView)
-    # 初始化玩家数据
 
 
     # 游戏循环
@@ -41,7 +40,7 @@ def run():
             if click_ret and click_ret.click_func:
                 click_ret.click_star()
 
-        # 检查热更
+        # 检查热更（可以分线程去检查）
 
 
 run()
