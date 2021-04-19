@@ -32,15 +32,6 @@ class TakeCardView(viewVesselMd.ViewVessel):
 
         # 抽卡展示图
         self.show_view_arr = None
-    # 获取单例
-    @staticmethod
-    def getInstance():
-        name = "TakeCardView"
-        ins = instanceMgrMd.instanceMgr.get_ins(name)
-        if not ins:
-            ins = TakeCardView()
-            instanceMgrMd.instanceMgr.set_ins(name, ins)
-        return ins
     
     # 删除旧的展示图
     def remove_show_view(self):
@@ -126,3 +117,11 @@ class TakeCardView(viewVesselMd.ViewVessel):
             idx += 1
         del tmp_show_card_view
         
+# 获取单例
+def getInstance():
+    name = "TakeCardView"
+    ins = instanceMgrMd.instanceMgr.get_ins(name)
+    if not ins:
+        ins = TakeCardView()
+        instanceMgrMd.instanceMgr.set_ins(name, ins)
+    return ins

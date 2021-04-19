@@ -22,25 +22,24 @@ class MainView():
         self.main_view = main_view
 
         # 加载玩家数据
-        playerMd.Player.getInstance()
+        playerMd.getInstance()
 
         # 初始化其他功能
         # 战斗视图
-        self.battle_view = battleViewMd.BattleView.getInstance()
+        self.battle_view = battleViewMd.getInstance()
         main_view.add_son_view(self.battle_view)
         # 保存功能
-        self.save_view = saveViewMd.SaveView.getInstance()
+        self.save_view = saveViewMd.getInstance()
         main_view.add_son_view(self.save_view)
         # 抽卡功能
-        self.take_card_view = takeCardViewMd.TakeCardView.getInstance()
+        self.take_card_view = takeCardViewMd.getInstance()
         main_view.add_son_view(self.take_card_view)
 
-    # 获取单例
-    @staticmethod
-    def getInstance(main_view):
-        name = "MainView"
-        ins = instanceMgrMd.instanceMgr.get_ins(name)
-        if not ins:
-            ins = MainView(main_view)
-            instanceMgrMd.instanceMgr.set_ins(name, ins)
-        return ins
+# 获取单例
+def getInstance(main_view):
+    name = "MainView"
+    ins = instanceMgrMd.instanceMgr.get_ins(name)
+    if not ins:
+        ins = MainView(main_view)
+        instanceMgrMd.instanceMgr.set_ins(name, ins)
+    return ins

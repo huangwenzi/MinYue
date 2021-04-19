@@ -9,7 +9,7 @@ import pygame
 import modules.view.mainView as mainViewMd
 # import modules.control.hotUp as hotUpMd
 import modules.control.mouse as mouseMd
-from modules.config.enum import mouse_enum
+import modules.config.enum as mouseEnumMd
 # 组件游戏模块
 import qinShi.view.mainView as QSmainViewMd
 
@@ -18,8 +18,8 @@ def run():
     # 创建基础界面
     mainView = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
     # 初始化界面功能
-    QSmainView = QSmainViewMd.MainView.getInstance(mainView)
-
+    QSmainView = QSmainViewMd.getInstance(mainView)
+    mouseIns = mouseMd.getInstance()
 
     # 游戏循环
     while True:
@@ -27,11 +27,11 @@ def run():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
         # 界面绘制
-        QSmainView.main_view.draw(QSmainView.main_view)
+        QSmainView.main_view.draw()
 
         # 处理鼠标事件
-        ret_mouse = mouseMd.Mouse.mouse_event()
-        if ret_mouse.type == mouse_enum.click_open:
+        ret_mouse = mouseIns.mouse_event()
+        if ret_mouse.type == mouseEnumMd.click_open:
             click_ret = QSmainView.main_view.check_click(ret_mouse, [0,0])
             if click_ret and click_ret.click_func:
                 click_ret.click_star()

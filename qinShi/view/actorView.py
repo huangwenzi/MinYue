@@ -24,7 +24,7 @@ class ActorView(viewVesselMd.ViewVessel):
     # lv : 角色等级
     def __init__(self, actor_id, lv):
         # 获取对应角色配置
-        cfgMgr = cfgMgrMd.CfgMgr.getInstance()
+        cfgMgr = cfgMgrMd.getInstance()
         str_id = str(actor_id)
         tmp_cfg = cfgMgr.actor_cfg[str_id]
 

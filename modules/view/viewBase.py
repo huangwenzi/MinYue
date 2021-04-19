@@ -56,7 +56,6 @@ class ViewBase():
     # 绘制自身
     # view_obj: 调用绘制对象（一般为主视图）
     # pos: 上一层的坐标偏移
-    @staticmethod
     def draw(self, view_obj, pos):
         if not self.show:
             return

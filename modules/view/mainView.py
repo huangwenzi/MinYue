@@ -33,13 +33,12 @@ class MainView(viewVesselMd.ViewVessel):
     # 图像设置函数
     # 主界面绘制
     # 也是调用其他界面绘制的地方
-    @staticmethod
     def draw(self):
         # 根据帧率刷新
         now = time.time()
         if self.LastUpdate + self.fps > now:
             return
-        super(MainView, self).draw(self, self.view_obj, (0, 0))
+        super().draw(self.view_obj, (0, 0))
         pygame.display.flip()
         
         # 更新刷新时间

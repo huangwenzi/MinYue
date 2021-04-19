@@ -12,19 +12,17 @@ class CfgMgr():
     # 初始化
     def __init__(self):
         self.actor_cfg = self.load_json("qinShi/config/actor.json")
-        
-
-    # 获取单例
-    @staticmethod
-    def getInstance():
-        name = "CfgMgr"
-        ins = instanceMgrMd.instanceMgr.get_ins(name)
-        if not ins:
-            ins = CfgMgr()
-            instanceMgrMd.instanceMgr.set_ins(name, ins)
-        return ins
 
     # 加载json配置文件
     def load_json(self, path):
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             return json.load(f)
+        
+# 获取单例
+def getInstance():
+    name = "CfgMgr"
+    ins = instanceMgrMd.instanceMgr.get_ins(name)
+    if not ins:
+        ins = CfgMgr()
+        instanceMgrMd.instanceMgr.set_ins(name, ins)
+    return ins

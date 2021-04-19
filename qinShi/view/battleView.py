@@ -38,16 +38,6 @@ class BattleView(viewVesselMd.ViewVessel):
         # 设置鼠标事件
         self.set_click_event(self.click_event)
 
-    # 获取单例
-    @staticmethod
-    def getInstance():
-        name = "BattleView"
-        ins = instanceMgrMd.instanceMgr.get_ins(name)
-        if not ins:
-            ins = BattleView()
-            instanceMgrMd.instanceMgr.set_ins(name, ins)
-        return ins
-
     # 事件函数
     # 点击事件
     def click_event(self):
@@ -61,7 +51,7 @@ class BattleView(viewVesselMd.ViewVessel):
         # 设置战斗
         # 添加玩家角色
         self.self_actor_obj = []
-        player_ins = playerMd.Player.getInstance()
+        player_ins = playerMd.getInstance()
         for tmp_actor in player_ins.playInfo["actor_arr"]:
             tmp_actor_obj = actorViewMd.ActorView(tmp_actor["id"], tmp_actor["lv"])
             self.self_actor_obj.append(tmp_actor_obj)
@@ -83,3 +73,12 @@ class BattleView(viewVesselMd.ViewVessel):
         battle_view.son_view_arr = []
         # 删除关闭按钮
         self.close_view = None
+
+# 获取单例
+def getInstance():
+    name = "BattleView"
+    ins = instanceMgrMd.instanceMgr.get_ins(name)
+    if not ins:
+        ins = BattleView()
+        instanceMgrMd.instanceMgr.set_ins(name, ins)
+    return ins

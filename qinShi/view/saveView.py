@@ -27,18 +27,17 @@ class SaveView(viewBaseMd.ViewBase):
         # 设置鼠标事件
         self.set_click_event(self.click_event)
 
-    # 获取单例
-    @staticmethod
-    def getInstance():
-        name = "SaveView"
-        ins = instanceMgrMd.instanceMgr.get_ins(name)
-        if not ins:
-            ins = SaveView()
-            instanceMgrMd.instanceMgr.set_ins(name, ins)
-        return ins
-
     # 事件函数
     # 点击事件
     def click_event(self):
-        player_ins = playerMd.Player.getInstance()
+        player_ins = playerMd.getInstance()
         player_ins.save_data()
+
+# 获取单例
+def getInstance():
+    name = "SaveView"
+    ins = instanceMgrMd.instanceMgr.get_ins(name)
+    if not ins:
+        ins = SaveView()
+        instanceMgrMd.instanceMgr.set_ins(name, ins)
+    return ins

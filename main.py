@@ -19,6 +19,6 @@ def run():
             if event.type == pygame.QUIT:
                 sys.exit(0)
         # 界面绘制
-        mainView.draw(mainView)
+        mainView.draw()
 
 run()

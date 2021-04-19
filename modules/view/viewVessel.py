@@ -28,18 +28,17 @@ class ViewVessel(viewBaseMd.ViewBase):
     # 重写子类绘制
     # view_obj: 调用绘制对象（一般为主视图）
     # pos: 上一层的坐标偏移
-    @staticmethod
     def draw(self, view_obj, pos):
         if not self.show:
             return
-        super(ViewVessel, self).draw(self, view_obj, pos)
+        super().draw(view_obj, pos)
         x = self.x + pos[0]
         y = self.y + pos[0]
         # 绘制子视图,从后面开始绘制
         son_len = len(self.son_view_arr)
         for idx in range(son_len):
             tmp_view = self.son_view_arr[son_len - idx - 1]
-            tmp_view.draw(tmp_view, view_obj, [x, y])
+            tmp_view.draw(view_obj, [x, y])
     # 添加子视图
     # view_obj: 子视图对象
     def add_son_view(self, view_obj):
