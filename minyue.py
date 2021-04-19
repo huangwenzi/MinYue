@@ -1,5 +1,4 @@
 # 系统模块
-import time
 import sys
 
 # 三方模块
@@ -8,8 +7,6 @@ import pygame
 # 项目模块
 # 游戏引擎模块
 import modules.view.mainView as mainViewMd
-import modules.view.viewVessel as viewVesselMd
-import modules.view.viewBase as viewBaseMd
 # import modules.control.hotUp as hotUpMd
 import modules.control.mouse as mouseMd
 from modules.config.enum import mouse_enum
@@ -18,7 +15,6 @@ import qinShi.view.mainView as QSmainViewMd
 
 # 开始运行文件
 def run():
-
     # 创建基础界面
     mainView = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
     # 初始化界面功能
