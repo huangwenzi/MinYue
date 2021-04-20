@@ -26,13 +26,13 @@ class MainView():
 
         # 初始化其他功能
         # 战斗视图
-        self.battle_view = battleViewMd.getInstance()
+        self.battle_view = battleViewMd.BattleView()
         main_view.add_son_view(self.battle_view)
         # 保存功能
-        self.save_view = saveViewMd.getInstance()
+        self.save_view = saveViewMd.SaveView()
         main_view.add_son_view(self.save_view)
         # 抽卡功能
-        self.take_card_view = takeCardViewMd.getInstance()
+        self.take_card_view = takeCardViewMd.TakeCardView()
         main_view.add_son_view(self.take_card_view)
 
 # 获取单例

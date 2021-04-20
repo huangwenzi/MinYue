@@ -30,7 +30,7 @@ class BattleView(viewVesselMd.ViewVessel):
     # 初始化战斗界面
     def __init__(self):
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, _battle_icon)
+        super().__init__(_battle_icon)
 
         # 设置位置
         self.set_pos(_init_pos[0], _init_pos[1])

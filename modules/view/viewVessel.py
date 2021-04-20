@@ -1,11 +1,12 @@
 
 # 三方模块
-import pygame
+
+
 
 # 项目模块
 import modules.view.viewBase as viewBaseMd
+import modules.config.viewCfg as viewCfgMd
 
-Close_button_path = "modules/resource/exit.png"
 
 # 最基础的视图容器
 class ViewVessel(viewBaseMd.ViewBase):
@@ -20,7 +21,7 @@ class ViewVessel(viewBaseMd.ViewBase):
     # 初始化
     def __init__(self, image_path):
         #调用父类的构函
-        viewBaseMd.ViewBase.__init__(self, image_path)
+        super().__init__(image_path)
         self.son_view_arr = []
         self.close_view = None
         
@@ -33,42 +34,49 @@ class ViewVessel(viewBaseMd.ViewBase):
             return
         super().draw(view_obj, pos)
         x = self.x + pos[0]
-        y = self.y + pos[0]
+        y = self.y + pos[1]
         # 绘制子视图,从后面开始绘制
         son_len = len(self.son_view_arr)
         for idx in range(son_len):
-            tmp_view = self.son_view_arr[son_len - idx - 1]
+            tmp_view = self.son_view_arr[son_len - (idx + 1)]
             tmp_view.draw(view_obj, [x, y])
+        # 最后绘制关闭按钮
+        if self.close_view:
+            self.close_view.draw(view_obj, [x, y])
     # 添加子视图
     # view_obj: 子视图对象
     def add_son_view(self, view_obj):
+        # 添加到最前面
         self.son_view_arr.insert(0, view_obj)
     # 设置关闭按钮
     def add_close_Button(self, func, argv = None):
-        self.close_view = viewBaseMd.ViewBase(Close_button_path)
+        self.close_view = viewBaseMd.ViewBase(viewCfgMd.close_button_path)
         if argv:
             self.close_view.set_click_event(func, argv)
         else:
             self.close_view.set_click_event(func)
         # 设置位置
         exit_width = self.close_view.width
-        exit_height = self.close_view.height
         x = self.width - exit_width
         y = 0
         self.close_view.set_pos(x, y)
-        self.add_son_view(self.close_view)
     
     # 获取点击的对象
     def check_click(self, click_pos, father_pos):
         # 自身是否在范围内
-        ret = super(ViewVessel, self).check_click(click_pos, father_pos)
+        ret = super().check_click(click_pos, father_pos)
         if ret:
+            # 先判断关闭按钮
+            new_x = father_pos[0] + self.x
+            new_y = father_pos[1] + self.y
+            ret = self.close_view.check_click(click_pos, [new_x, new_y])
+            if ret:
+                return ret
+            
             # 是否在子视图内
-            father_pos[0] += self.x
-            father_pos[1] += self.y
             idx = 0
             for tmp_view in self.son_view_arr:
-                tmp_ret = tmp_view.check_click(click_pos, father_pos)
+                tmp_ret = tmp_view.check_click(click_pos, [new_x, new_y])
                 if tmp_ret:
                     # 设置点击的视图在最上层
                     if idx != 0:

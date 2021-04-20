@@ -11,7 +11,7 @@ import modules.view.viewVessel as viewVesselMd
 class MainView(viewVesselMd.ViewVessel):
     # 设置
     fps = 1 # 帧率
-    LastUpdate = 0  # 上次刷新界面时间
+    next_update = 0  # 下次刷新界面时间
 
     # 视图对象
     view_obj = None    # 窗体对象
@@ -20,13 +20,11 @@ class MainView(viewVesselMd.ViewVessel):
     # 初始化一个主界面
     def __init__(self, image_path):
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, image_path)
-
+        super().__init__(image_path)
         pygame.display.set_caption(self.name)
         self.set_background(self.image_path)
         self.view_obj = pygame.display.set_mode((self.width, self.height))
-        self.fps = 0.5
-        self.LastUpdate = time.time()
+        self.next_update = time.time()
         
 
 
@@ -36,16 +34,16 @@ class MainView(viewVesselMd.ViewVessel):
     def draw(self):
         # 根据帧率刷新
         now = time.time()
-        if self.LastUpdate + self.fps > now:
+        if now < self.next_update:
             return
         super().draw(self.view_obj, (0, 0))
         pygame.display.flip()
         
         # 更新刷新时间
-        self.LastUpdate = now
+        self.next_update = now + self.fps
 
     # 获取点击的对象
     def check_click(self, click_pos, father_pos):
         # 是否在范围内
-        ret = super(MainView, self).check_click(click_pos, father_pos)
+        ret = super().check_click(click_pos, father_pos)
         return ret

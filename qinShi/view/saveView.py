@@ -19,7 +19,7 @@ class SaveView(viewBaseMd.ViewBase):
     # 初始化战斗界面
     def __init__(self):
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, Save_icon)
+        super().__init__(Save_icon)
 
         # 设置位置
         self.set_pos(Init_pos[0], Init_pos[1])

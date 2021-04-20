@@ -1,7 +1,7 @@
 # 系统模块
 from imp import reload
 # 三方模块
-import pygame
+
 # 项目模块
 import modules.control.instanceMgr as instanceMgrMd
 
@@ -15,14 +15,14 @@ class HotUp():
 
     # 热更主函数
     @staticmethod
-    def hot_up(path_arr):
-        ins = getInstance()
+    def hot_up(self, path_arr):
         for tmp_path in path_arr:
             obj = reload(tmp_path)
             # 下面是对加入实例管理器的实例热更
-            if "hot_up_name" in obj and obj.hot_up_name in ins.example_dict:
+            # 热更需要对象带有热更名字段
+            if "hot_up_name" in obj and obj.hot_up_name in self.example_dict:
                 fun_arr = obj.fun_arr
-                for tmp_obj in ins.example_dict[obj.hot_up_name]:
+                for tmp_obj in self.example_dict[obj.hot_up_name]:
                     for fun_name in fun_arr:
                         setattr(tmp_obj, fun_name, obj.__dict__[fun_name])
     

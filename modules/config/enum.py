@@ -1,8 +1,8 @@
 # 鼠标枚举
 # 无操作
-click_free = 0
+mouse_click_free = 0
 # 点击左键
-click_down = 1
+mouse_click_down = 1
 # 左键弹起
-click_open = 2
+mouse_click_open = 2
 

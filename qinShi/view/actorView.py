@@ -47,6 +47,6 @@ class ActorView(viewVesselMd.ViewVessel):
         self.right_attack = right_attack
 
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, left_stand)
+        super().__init__(left_stand)
         # 设置位置
         self.set_pos(0, 0)

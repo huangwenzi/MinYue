@@ -24,7 +24,7 @@ class TakeCardView(viewVesselMd.ViewVessel):
     # 初始化抽卡界面
     def __init__(self):
         #调用父类的构函
-        viewVesselMd.ViewVessel.__init__(self, _icon)
+        super().__init__(_icon)
         # 设置位置
         self.set_pos(_init_pos[0], _init_pos[1])
         # 设置鼠标事件

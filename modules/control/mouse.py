@@ -9,7 +9,7 @@ import modules.control.instanceMgr as instanceMgrMd
 # 鼠标事件的返回
 class Postion():
     def __init__(self):
-        self.type = mouseEnumMd.click_free
+        self.type = mouseEnumMd.mouse_click_free
         self.x = 0
         self.y = 0
 
@@ -35,10 +35,10 @@ class Mouse():
         ret.y = position[1]
         if pressde[0]:
             self.left_set = True
-            ret.type = mouseEnumMd.click_down
+            ret.type = mouseEnumMd.mouse_click_down
         elif pressde[0] == 0 and self.left_set == True:
             self.left_set = False
-            ret.type = mouseEnumMd.click_open
+            ret.type = mouseEnumMd.mouse_click_open
         return ret
 
 # 获取单例
