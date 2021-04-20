@@ -117,11 +117,3 @@ class TakeCardView(viewVesselMd.ViewVessel):
             idx += 1
         del tmp_show_card_view
         
-# 获取单例
-def getInstance():
-    name = "TakeCardView"
-    ins = instanceMgrMd.instanceMgr.get_ins(name)
-    if not ins:
-        ins = TakeCardView()
-        instanceMgrMd.instanceMgr.set_ins(name, ins)
-    return ins

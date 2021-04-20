@@ -2,8 +2,6 @@
 
 # 项目模块
 import modules.view.viewVessel as viewVesselMd
-import modules.view.viewBase as viewBaseMd
-import modules.control.instanceMgr as instanceMgrMd
 import qinShi.view.actorView as actorViewMd
 import qinShi.control.player as playerMd
 
@@ -11,8 +9,6 @@ import qinShi.control.player as playerMd
 _init_pos = [0,0]
 # 战斗图
 _battle_background = "qinShi/resource/screen/battle.jpg"
-# 退出图标
-_exit_icon = "qinShi/resource/view/exit.png"
 # 战斗图标
 _battle_icon = "qinShi/resource/view/battle.png"
 
@@ -37,6 +33,7 @@ class BattleView(viewVesselMd.ViewVessel):
 
         # 设置鼠标事件
         self.set_click_event(self.click_event)
+        
 
     # 事件函数
     # 点击事件
@@ -74,11 +71,3 @@ class BattleView(viewVesselMd.ViewVessel):
         # 删除关闭按钮
         self.close_view = None
 
-# 获取单例
-def getInstance():
-    name = "BattleView"
-    ins = instanceMgrMd.instanceMgr.get_ins(name)
-    if not ins:
-        ins = BattleView()
-        instanceMgrMd.instanceMgr.set_ins(name, ins)
-    return ins

@@ -37,8 +37,9 @@ class MainView(viewVesselMd.ViewVessel):
         if now < self.next_update:
             return
         super().draw(self.view_obj, (0, 0))
-        pygame.display.flip()
-        
+        # update()绘制变化部分 flip()绘制全部
+        # pygame.display.flip()
+        pygame.display.update() 
         # 更新刷新时间
         self.next_update = now + self.fps
 

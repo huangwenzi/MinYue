@@ -3,6 +3,10 @@ import sys
 
 # 三方模块
 import pygame
+import pygame.freetype
+
+pygame.init()
+# pygame.freetype.init()
 
 # 项目模块
 # 游戏引擎模块

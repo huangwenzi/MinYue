@@ -38,12 +38,6 @@ class ViewBase():
     # image_path: 图片地址
     def __init__(self, image_path):
         self.set_background(image_path)
-        # tmp_obj = pygame.image.load(image_path)
-        # if tmp_obj:
-        #     self.height = tmp_obj.get_height()
-        #     self.width = tmp_obj.get_width()
-        #     self.image_path = image_path
-        #     self.image_obj = tmp_obj
 
     # 图像相关函数
     # 绘制自身
@@ -68,6 +62,11 @@ class ViewBase():
     def set_pos(self, x, y):
         self.x = x
         self.y = y
+    # 设置是否显示
+    def set_show(self, show_type):
+        self.show = show_type
+
+        
 
     # 注册事件
     # 注册点击

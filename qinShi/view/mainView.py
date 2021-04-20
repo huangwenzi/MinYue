@@ -8,6 +8,7 @@ import qinShi.view.battleView as battleViewMd
 import qinShi.view.saveView as saveViewMd
 import qinShi.view.takeCardView as takeCardViewMd
 import qinShi.control.player as playerMd
+import modules.view.label as labelMd
 
 
 # 这是主界面
@@ -21,9 +22,6 @@ class MainView():
     def __init__(self, main_view):
         self.main_view = main_view
 
-        # 加载玩家数据
-        playerMd.getInstance()
-
         # 初始化其他功能
         # 战斗视图
         self.battle_view = battleViewMd.BattleView()
@@ -34,6 +32,10 @@ class MainView():
         # 抽卡功能
         self.take_card_view = takeCardViewMd.TakeCardView()
         main_view.add_son_view(self.take_card_view)
+        # label
+        label = labelMd.Label()
+        main_view.add_son_view(label)
+        
 
 # 获取单例
 def getInstance(main_view):

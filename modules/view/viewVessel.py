@@ -22,8 +22,8 @@ class ViewVessel(viewBaseMd.ViewBase):
     def __init__(self, image_path):
         #调用父类的构函
         super().__init__(image_path)
-        self.son_view_arr = []
-        self.close_view = None
+        self.son_view_arr = [] 
+        self.close_view = None 
         
     # 绘制
     # 重写子类绘制
@@ -37,8 +37,9 @@ class ViewVessel(viewBaseMd.ViewBase):
         y = self.y + pos[1]
         # 绘制子视图,从后面开始绘制
         son_len = len(self.son_view_arr)
-        for idx in range(son_len):
-            tmp_view = self.son_view_arr[son_len - (idx + 1)]
+        for son_idx in range(son_len):
+            son_view_arr_idx = son_len - (son_idx + 1)
+            tmp_view = self.son_view_arr[son_view_arr_idx]
             tmp_view.draw(view_obj, [x, y])
         # 最后绘制关闭按钮
         if self.close_view:
@@ -69,20 +70,21 @@ class ViewVessel(viewBaseMd.ViewBase):
             # 先判断关闭按钮
             new_x = father_pos[0] + self.x
             new_y = father_pos[1] + self.y
-            ret = self.close_view.check_click(click_pos, [new_x, new_y])
-            if ret:
-                return ret
+            if self.close_view:
+                close_view_ret = self.close_view.check_click(click_pos, [new_x, new_y])
+                if close_view_ret:
+                    return close_view_ret
             
             # 是否在子视图内
             idx = 0
             for tmp_view in self.son_view_arr:
-                tmp_ret = tmp_view.check_click(click_pos, [new_x, new_y])
-                if tmp_ret:
+                son_ret = tmp_view.check_click(click_pos, [new_x, new_y])
+                if son_ret:
                     # 设置点击的视图在最上层
                     if idx != 0:
                         tmp_obj = self.son_view_arr.pop(idx)
                         self.son_view_arr.insert(0, tmp_obj)
-                    return tmp_ret
+                    return son_ret
                 idx += 1
             return ret
         

@@ -41,11 +41,3 @@ class Mouse():
             ret.type = mouseEnumMd.mouse_click_open
         return ret
 
-# 获取单例
-def getInstance():
-    name = "Mouse"
-    ins = instanceMgrMd.instanceMgr.get_ins(name)
-    if not ins:
-        ins = Mouse()
-        instanceMgrMd.instanceMgr.set_ins(name, ins)
-    return ins

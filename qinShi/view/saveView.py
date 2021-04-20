@@ -33,11 +33,3 @@ class SaveView(viewBaseMd.ViewBase):
         player_ins = playerMd.getInstance()
         player_ins.save_data()
 
-# 获取单例
-def getInstance():
-    name = "SaveView"
-    ins = instanceMgrMd.instanceMgr.get_ins(name)
-    if not ins:
-        ins = SaveView()
-        instanceMgrMd.instanceMgr.set_ins(name, ins)
-    return ins
