@@ -57,12 +57,12 @@ class Label():
     def set_text(self, text):
         self.text = text
     # 设置字体
-    def set_text(self, font):
+    def set_font(self, font):
         self.f1 = pygame.freetype.SysFont(font, self.size)
     # 设置颜色
-    def set_text(self, colour):
+    def set_colour(self, colour):
         self.text_colour = colour
     # 设置位置
-    def set_text(self, pos):
+    def set_pos(self, pos):
         self.x = pos[0]
         self.y = pos[1]
