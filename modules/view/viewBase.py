@@ -19,6 +19,9 @@ class ViewBase():
     # 相对父窗口左上角偏移
     x = 0   
     y = 0
+    # 相对父窗口左上角偏移,初始位置
+    init_x = 0   
+    init_y = 0
     # 背景图
     image_path = "" 
     # 是否显示
@@ -62,10 +65,18 @@ class ViewBase():
     def set_pos(self, x, y):
         self.x = x
         self.y = y
+    # 设置初始位置
+    def set_init_pos(self, x, y):
+        self.init_x = x
+        self.init_y = y
     # 设置是否显示
     def set_show(self, show_type):
         self.show = show_type
 
+        
+    # 回归初始位置
+    def return_init_pos(self):
+        self.set_pos(self.init_x, self.init_y)
         
 
     # 注册事件

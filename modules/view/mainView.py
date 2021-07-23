@@ -22,7 +22,6 @@ class MainView(viewVesselMd.ViewVessel):
         #调用父类的构函
         super().__init__(image_path)
         pygame.display.set_caption(self.name)
-        self.set_background(self.image_path)
         self.view_obj = pygame.display.set_mode((self.width, self.height))
         self.next_update = time.time()
         
@@ -48,3 +47,7 @@ class MainView(viewVesselMd.ViewVessel):
         # 是否在范围内
         ret = super().check_click(click_pos, father_pos)
         return ret
+
+    # 设置帧率
+    def set_fps(self, new_fps):
+        self.fps = new_fps

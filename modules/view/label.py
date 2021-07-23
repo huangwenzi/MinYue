@@ -63,6 +63,6 @@ class Label():
     def set_colour(self, colour):
         self.text_colour = colour
     # 设置位置
-    def set_pos(self, pos):
-        self.x = pos[0]
-        self.y = pos[1]
+    def set_pos(self, x, y):
+        self.x = x
+        self.y = y

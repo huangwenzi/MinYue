@@ -6,12 +6,15 @@ import modules.control.instanceMgr as instanceMgrMd
 
 # 配置管理器
 class CfgMgr():
+    # 游戏配置
+    game_cfg = None
     # 角色配置
     actor_cfg = None
 
     # 初始化
     def __init__(self):
         self.actor_cfg = self.load_json("qinShi/config/actor.json")
+        self.game_cfg = self.load_json("qinShi/config/game.json")
 
     # 加载json配置文件
     def load_json(self, path):

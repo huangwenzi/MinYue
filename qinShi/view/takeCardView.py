@@ -9,8 +9,6 @@ import modules.control.instanceMgr as instanceMgrMd
 import qinShi.view.actorView as actorViewMd
 import qinShi.control.player as playerMd
 
-# 初始位置
-_init_pos = [80,0]
 # 抽卡图标
 _icon = "qinShi/resource/view/takeCard/takeCard.png"
 _one = "qinShi/resource/view/takeCard/one.png"
@@ -25,8 +23,6 @@ class TakeCardView(viewVesselMd.ViewVessel):
     def __init__(self):
         #调用父类的构函
         super().__init__(_icon)
-        # 设置位置
-        self.set_pos(_init_pos[0], _init_pos[1])
         # 设置鼠标事件
         self.set_click_event(self.click_event)
 
@@ -61,14 +57,14 @@ class TakeCardView(viewVesselMd.ViewVessel):
         # 抽一次
         self.one_view = viewBaseMd.ViewBase(_one)
         self.one_view.set_click_event(self.click_take_card, {"obj":self, "count":1})
-        x = 200
+        x = 100
         y = 50
         self.one_view.set_pos(x, y)
         self.add_son_view(self.one_view)
         # 抽十次
         self.ten_view = viewBaseMd.ViewBase(_ten)
         self.ten_view.set_click_event(self.click_take_card, {"obj":self, "count":10})
-        x = 400
+        x = 200
         y = 50
         self.ten_view.set_pos(x, y)
         self.add_son_view(self.ten_view)
@@ -77,7 +73,7 @@ class TakeCardView(viewVesselMd.ViewVessel):
         # 恢复背景图
         self.set_background(_icon)
         # 设置位置
-        self.set_pos(_init_pos[0], _init_pos[1])
+        self.return_init_pos()
 
         # 删除子视图
         del self.son_view_arr
