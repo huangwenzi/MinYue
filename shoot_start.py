@@ -10,7 +10,6 @@ pygame.init()
 
 # 项目模块
 # 游戏引擎模块
-import modules.view.mainView as mainViewMd
 # import modules.control.hotUp as hotUpMd
 import modules.control.mouse as mouseMd
 import modules.config.enum as mouseEnumMd
@@ -18,35 +17,27 @@ import modules.tool.time_tool as TimeToolMd
 
 
 # 组件游戏模块
-import qinShi.view.mainView as QSmainViewMd
-import qinShi.control.cfgMgr as CfgMgrMd
-cfg_mgr = CfgMgrMd.getInstance()
-import qinShi.control.player as playerMd
-player = playerMd.getInstance()
+import mod_shoot.view.main_view as ModMainViewMd
+
 
 # 开始运行文件
 def run():
     # 创建基础界面
-    main_view = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
-    main_view.set_fps(cfg_mgr.game_cfg["fps"]["date"])
-    # 初始化界面功能
-    qs_main_view = QSmainViewMd.getInstance(main_view)
+    main_view = ModMainViewMd.getInstance()
     mouse = mouseMd.Mouse()
     # 初始化数据
-
-
     # 游戏循环
     while True:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
         # 界面绘制
-        qs_main_view.main_view.draw()
+        main_view.main_view.draw()
 
         # 处理鼠标事件
         ret_mouse = mouse.mouse_event()
         if ret_mouse.type == mouseEnumMd.mouse_click_open:
-            click_ret = qs_main_view.main_view.check_click(ret_mouse, [0,0])
+            click_ret = main_view.main_view.check_click(ret_mouse, [0,0])
             if click_ret and click_ret.click_func:
                 click_ret.click_star()
         # 检查热更（可以分线程去检查）

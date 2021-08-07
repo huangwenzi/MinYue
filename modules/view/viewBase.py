@@ -40,7 +40,8 @@ class ViewBase():
     # 初始化
     # image_path: 图片地址
     def __init__(self, image_path):
-        self.set_background(image_path)
+        if image_path:
+            self.set_background(image_path)
 
     # 图像相关函数
     # 绘制自身
@@ -49,9 +50,11 @@ class ViewBase():
     def draw(self, view_obj, pos):
         if not self.show:
             return
-        x = self.x + pos[0]
-        y = self.y + pos[1]
-        view_obj.blit(self.image_obj, (x, y))
+        # 是否有背景图
+        if self.image_obj:
+            x = self.x + pos[0]
+            y = self.y + pos[1]
+            view_obj.blit(self.image_obj, (x, y))
     # 设置背景图
     # image_path: 背景图地址
     def set_background(self, image_path):
@@ -72,6 +75,10 @@ class ViewBase():
     # 设置是否显示
     def set_show(self, show_type):
         self.show = show_type
+    # 设置宽高
+    def set_w_h(self, width, height):
+        self.width = width
+        self.height = height
 
         
     # 回归初始位置
