@@ -6,13 +6,6 @@ import pygame
 import modules.config.enum as EnumMd
 import modules.control.instanceMgr as instanceMgrMd
 
-# 键盘事件的返回
-class Postion():
-    def __init__(self):
-        self.type = mouseEnumMd.mouse_click_free
-        self.x = 0
-        self.y = 0
-
 # 键盘事件处理
 class Keyboard():
     # 已按下的键
