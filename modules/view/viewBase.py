@@ -104,7 +104,8 @@ class ViewBase():
     # self : 执行对象
     # argv : 传入参数
     def click_star(self):
-        if not self.click_argv:
-            self.click_func()
-        else:
-            self.click_func(self.click_argv)
+        if self.click_func:
+            if not self.click_argv:
+                self.click_func()
+            else:
+                self.click_func(self.click_argv)

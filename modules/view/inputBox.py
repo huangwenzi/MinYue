@@ -10,10 +10,10 @@ import modules.view.viewBase as viewBaseMd
 
 
 
-# 按钮
-class Button(viewBaseMd.ViewBase):  
+# 输入框
+class InputBox(viewBaseMd.ViewBase):  
     # 文本
-    text = "button"
+    text = ""
     # 文本颜色
     text_colour = viewCfgMd.sys_font_text_colour
     # 文字大小
@@ -23,14 +23,12 @@ class Button(viewBaseMd.ViewBase):
     
     # 图形
     # 矩形边缘宽度
-    rect_width = viewCfgMd.button_rect_width
+    rect_width = viewCfgMd.input_box_rect_width
     
     
     # 初始化
     # image_path: 图片地址
-    def __init__(self, text = None, size = None, image_path = None, width = 0, height = 0):
-        #调用父类的构函
-        super().__init__(image_path)
+    def __init__(self, text = None, size = None, width = 0, height = 0):
         if text:
             self.text = text
         if size:
@@ -45,8 +43,6 @@ class Button(viewBaseMd.ViewBase):
     def draw(self, view_obj, pos):
         if not self.show:
             return
-        # 父类绘制图片
-        super().draw(view_obj, pos)
         # 绘制文本
         x = self.x + pos[0]
         y = self.y + pos[1]
@@ -70,3 +66,13 @@ class Button(viewBaseMd.ViewBase):
     # 设置颜色
     def set_colour(self, colour):
         self.text_colour = colour
+
+    # 键盘事件
+    def keyboard_fun(self, keyboard):
+        new_dowm_map,new_up_map,now_dowm_map = keyboard.keyboard_event()
+        for key in new_dowm_map:
+            # 删除键
+            if key == "\b":
+                self.text = self.text[:-1]
+            else:
+                self.text += key

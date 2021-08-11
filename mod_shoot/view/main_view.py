@@ -3,6 +3,7 @@
 # 游戏引擎模块
 import modules.view.mainView as mainViewMd
 import modules.view.button as ButtonMd
+import modules.view.inputBox as InputBoxMd
 import modules.control.instanceMgr as instanceMgrMd
 # mod模块
 import mod_shoot.config.view as ViewCfgMd
@@ -30,6 +31,12 @@ class MainView():
         self.login_button = login_button
         main_view.add_son_view(login_button)
         login_button.set_click_event(self.login_button_click_event, self)
+        # 输入框
+        in_put_box = InputBoxMd.InputBox(text = "", width = 100, height = 30)
+        in_put_box.set_pos(100,100)
+        self.in_put_box = in_put_box
+        main_view.add_son_view(in_put_box)
+        
         
     # 登录事件
     def login_button_click_event(obj, self):

@@ -6,3 +6,11 @@ mouse_click_down = 1
 # 左键弹起
 mouse_click_open = 2
 
+
+# 键盘枚举
+# 无操作
+keyboard_click_free = 0
+# 键按下
+keyboard_click_down = 1
+# 键弹起
+keyboard_click_open = 2
