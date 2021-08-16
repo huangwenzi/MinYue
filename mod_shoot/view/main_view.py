@@ -9,9 +9,11 @@ import modules.control.instanceMgr as instanceMgrMd
 import mod_shoot.config.view as ViewCfgMd
 
 # 这是主界面
-class MainView():
-    # 主视图对象
-    main_view = None
+class MainView(mainViewMd.MainView):
+    # 账号输入框
+    in_put_account = None
+    # 密码
+    in_put_password = None
     # 连接按钮
     login_button = None
 
@@ -21,21 +23,30 @@ class MainView():
 
     # 初始化
     def __init__(self):
-        main_view = mainViewMd.MainView(ViewCfgMd.viem_main.screen)
-        main_view.set_fps(ViewCfgMd.viem_main.fps)
-        self.main_view = main_view
+        super().__init__(ViewCfgMd.viem_main_screen)
+        self.set_fps(ViewCfgMd.viem_main_fps)
 
         # 初始化其他功能
+        # 输入框
+        # 账号
+        main_width = self.width
+        # main_height = main_view.height
+        in_put_account = InputBoxMd.InputBox(text = "", width = 100, height = 30)
+        in_put_account.set_pos((main_width - in_put_account.width)/2, 100)
+        self.in_put_account = in_put_account
+        self.add_son_view(in_put_account)
+        # 密码
+        in_put_password = InputBoxMd.InputBox(text = "", width = 100, height = 30)
+        in_put_password.set_pos((main_width - in_put_password.width)/2, 130)
+        self.in_put_password = in_put_password
+        self.add_son_view(in_put_password)
+        # 按钮
         # 连接按钮
         login_button = ButtonMd.Button(text = "登录", width = 100, height = 100)
+        login_button.set_pos((main_width - login_button.width)/2, 160)
         self.login_button = login_button
-        main_view.add_son_view(login_button)
+        self.add_son_view(login_button)
         login_button.set_click_event(self.login_button_click_event, self)
-        # 输入框
-        in_put_box = InputBoxMd.InputBox(text = "", width = 100, height = 30)
-        in_put_box.set_pos(100,100)
-        self.in_put_box = in_put_box
-        main_view.add_son_view(in_put_box)
         
         
     # 登录事件

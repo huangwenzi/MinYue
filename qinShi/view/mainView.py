@@ -5,18 +5,16 @@
 # 项目模块
 import modules.control.instanceMgr as instanceMgrMd
 import modules.view.label as labelMd
+import modules.view.mainView as mainViewMd
 import qinShi.view.battleView as battleViewMd
 import qinShi.view.saveView as saveViewMd
 import qinShi.view.takeCardView as takeCardViewMd
 import qinShi.view.actorListView as actorListViewMd
-import qinShi.control.player as playerMd
 import qinShi.control.cfgMgr as CfgMgrMd
 cfg_mgr = CfgMgrMd.getInstance()
 
 # 这是主界面
-class MainView():
-    # 主视图对象
-    main_view = None
+class MainView(mainViewMd.MainView):
     # 战斗视图对象
     battle_view = None
 
@@ -25,8 +23,9 @@ class MainView():
     icon_y = 0
 
     # 初始化
-    def __init__(self, main_view):
-        self.main_view = main_view
+    def __init__(self):
+        super().__init__('qinShi/resource/screen/main.jpg')
+        self.set_fps(cfg_mgr.game_cfg["fps"]["date"])
 
         # 初始化其他功能
         # 战斗视图
@@ -47,7 +46,7 @@ class MainView():
     
     # 本对象添加子视图
     def self_add_son_view(self, son_view):
-        self.main_view.add_son_view(son_view)
+        self.add_son_view(son_view)
         x,y = self.get_next_pos()
         son_view.set_pos(x,y)
         son_view.set_init_pos(x,y)
@@ -57,7 +56,7 @@ class MainView():
         next_x = self.icon_x
         next_y = self.icon_y
 
-        width = self.main_view.width
+        width = self.width
         self.icon_x += cfg_mgr.game_cfg["main_icon_size"]["date"][0]
         # 是否要另起一行
         if self.icon_x > width:
@@ -68,10 +67,10 @@ class MainView():
         
 
 # 获取单例
-def getInstance(main_view):
+def getInstance():
     name = "MainView"
     ins = instanceMgrMd.instanceMgr.get_ins(name)
     if not ins:
-        ins = MainView(main_view)
+        ins = MainView()
         instanceMgrMd.instanceMgr.set_ins(name, ins)
     return ins

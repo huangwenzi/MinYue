@@ -1,14 +1,23 @@
 # 官方模块
 import time
+import sys
 
 # 三方模块
 import pygame
 
 # 项目模块
 import modules.view.viewVessel as viewVesselMd
+import modules.control.mouse as mouseMd
+import modules.config.enum as mouseEnumMd
+import modules.control.keyboard as KeyboardMd
+import modules.tool.time_tool as TimeToolMd
 
 # 这是主界面
 class MainView(viewVesselMd.ViewVessel):
+    # 控制对象
+    mouse = None
+    keyboard = None
+
     # 设置
     fps = 1 # 帧率
     next_update = 0  # 下次刷新界面时间
@@ -25,7 +34,41 @@ class MainView(viewVesselMd.ViewVessel):
         self.view_obj = pygame.display.set_mode((self.width, self.height))
         self.next_update = time.time()
         
+    # 游戏循环
+    def run(self):
+        # 最近的点击对象
+        click_ret = None
+        mouse = mouseMd.Mouse()
+        keyboard = KeyboardMd.Keyboard()
 
+        # 游戏循环
+        while True:
+            for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit(0)
+
+            # 界面绘制
+            self.draw()
+
+            # 处理鼠标事件
+            ret_mouse = mouse.mouse_event()
+            if ret_mouse.type == mouseEnumMd.mouse_click_open:
+                click_ret = self.check_click(ret_mouse, [0,0])
+                if click_ret:
+                    click_ret.click_star()
+                        
+
+            # 键盘事件
+            # new_dowm_map,new_up_map,now_dowm_map = keyboard.keyboard_event()
+            # for item in new_dowm_map:
+            #     print("new_dowm:" + item)
+            # for item in new_up_map:
+            #     print("new_up:" + item)
+            if click_ret:
+                click_ret.keyboard_star(keyboard)
+                       
+
+            # 检查热更（可以分线程去检查）
 
     # 图像设置函数
     # 主界面绘制

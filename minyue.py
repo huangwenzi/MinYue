@@ -26,30 +26,15 @@ player = playerMd.getInstance()
 
 # 开始运行文件
 def run():
-    # 创建基础界面
-    main_view = mainViewMd.MainView('qinShi/resource/screen/main.jpg')
-    main_view.set_fps(cfg_mgr.game_cfg["fps"]["date"])
     # 初始化界面功能
-    qs_main_view = QSmainViewMd.getInstance(main_view)
+    qs_main_view = QSmainViewMd.getInstance()
     mouse = mouseMd.Mouse()
     # 初始化数据
 
 
-    # 游戏循环
-    while True:
-        for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit(0)
-        # 界面绘制
-        qs_main_view.main_view.draw()
 
-        # 处理鼠标事件
-        ret_mouse = mouse.mouse_event()
-        if ret_mouse.type == mouseEnumMd.mouse_click_open:
-            click_ret = qs_main_view.main_view.check_click(ret_mouse, [0,0])
-            if click_ret and click_ret.click_func:
-                click_ret.click_star()
-        # 检查热更（可以分线程去检查）
+    # 游戏循环
+    qs_main_view.run()
 
 
 

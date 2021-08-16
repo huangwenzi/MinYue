@@ -52,7 +52,7 @@ class Button(viewBaseMd.ViewBase):
         y = self.y + pos[1]
         if self.text:
             # 取中间点
-            middle_x = x + (self.width - (len(self.text)*self.size)/2)/2
+            middle_x = x + (self.width - (len(self.text)*self.size))/2
             middle_y = y + (self.height - self.size)/2
             self.f1.render_to(view_obj, (middle_x, middle_y), self.text, fgcolor = self.text_colour, size = self.size)
         # 绘制边缘
