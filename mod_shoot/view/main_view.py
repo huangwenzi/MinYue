@@ -5,6 +5,7 @@ import modules.view.mainView as mainViewMd
 import modules.view.button as ButtonMd
 import modules.view.inputBox as InputBoxMd
 import modules.control.instanceMgr as instanceMgrMd
+import modules.config.enum as mouseEnumMd
 # mod模块
 import mod_shoot.config.view as ViewCfgMd
 
@@ -46,11 +47,12 @@ class MainView(mainViewMd.MainView):
         login_button.set_pos((main_width - login_button.width)/2, 160)
         self.login_button = login_button
         self.add_son_view(login_button)
-        login_button.set_click_event(self.login_button_click_event, self)
+        login_button.set_mouse_event(mouseEnumMd.mouse_click_down, self.login_button_click_event, self)
         
         
     # 登录事件
-    def login_button_click_event(obj, self):
+    def login_button_click_event(obj, ret_mouse, self):
+        print("login_button_click_event")
         # 连接服务器
         pass
         

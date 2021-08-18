@@ -12,6 +12,9 @@ import modules.config.enum as mouseEnumMd
 import modules.control.keyboard as KeyboardMd
 import modules.tool.time_tool as TimeToolMd
 
+
+        
+
 # 这是主界面
 class MainView(viewVesselMd.ViewVessel):
     # 控制对象
@@ -40,6 +43,7 @@ class MainView(viewVesselMd.ViewVessel):
         click_ret = None
         mouse = mouseMd.Mouse()
         keyboard = KeyboardMd.Keyboard()
+        
 
         # 游戏循环
         while True:
@@ -52,10 +56,19 @@ class MainView(viewVesselMd.ViewVessel):
 
             # 处理鼠标事件
             ret_mouse = mouse.mouse_event()
-            if ret_mouse.type == mouseEnumMd.mouse_click_open:
-                click_ret = self.check_click(ret_mouse, [0,0])
-                if click_ret:
-                    click_ret.click_star()
+            new_click_ret = self.check_click(ret_mouse, [0,0])
+            # 鼠标点下
+            if ret_mouse.type == mouseEnumMd.mouse_click_down:  
+                if new_click_ret:
+                    click_ret = new_click_ret
+                    click_ret.mouse_event_star(ret_mouse)  
+            elif ret_mouse.type == mouseEnumMd.mouse_click_open:  # 鼠标弹起
+                if click_ret == new_click_ret:  # 点下和弹起是同一对象
+                    click_ret.mouse_event_star(ret_mouse)
+            elif ret_mouse.type == mouseEnumMd.mouse_click_drag:  # 鼠标拖动
+                if click_ret == new_click_ret:  # 点下和拖动是同一对象
+                    click_ret.mouse_event_star(ret_mouse)
+              
                         
 
             # 键盘事件

@@ -5,6 +5,8 @@ mouse_click_free = 0
 mouse_click_down = 1
 # 左键弹起
 mouse_click_open = 2
+# 拖动
+mouse_click_drag = 3
 
 
 # 键盘枚举

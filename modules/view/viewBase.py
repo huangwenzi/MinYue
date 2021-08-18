@@ -5,6 +5,19 @@ import pygame
 
 
 
+# 事件对象
+class EventObj(object):
+    # 事件状态 False:未开启
+    state = False
+    # 事件执行函数
+    func = None  
+    # 事件参数
+    argv = None
+    def __init__(self):
+        self.state = False
+        self.func = None
+        self.argv = None
+        
 
 
 # 界面基类
@@ -32,26 +45,32 @@ class ViewBase():
     image_obj = None    
 
     # 事件
+    # 鼠标事件
+    mouse_event_list = [EventObj()]
     # 点击事件
     # 是否有点击事件
-    click_func_state = False
+    mouse_open_func_state = False
     # 点击事件执行函数
-    click_func = None  
+    mouse_open_func = None  
     # 点击事件参数
-    click_argv = None
+    mouse_open_argv = None
 
     # 键盘事件
-    keyboard_func_state = False
-    # 键盘事件执行函数
-    keyboard_func = None  
-    # 键盘事件参数
-    keyboard_argv = None
+    keyboard_event = EventObj()
+
     
     # 初始化
     # image_path: 图片地址
     def __init__(self, image_path):
         if image_path:
             self.set_background(image_path)
+        self.keyboard_event = EventObj()
+        self.mouse_event_list = [
+            EventObj()
+            , EventObj()
+            , EventObj()
+            , EventObj()
+        ]
 
     # 图像相关函数
     # 绘制自身
@@ -107,32 +126,43 @@ class ViewBase():
         return None
 
     # 注册事件
-    # 注册点击事件
-    def set_click_event(self, func, argv = None):
-        self.click_func = func
-        self.click_argv = argv
-        self.click_func_state = True
-    # 执行点击函数
-    # self : 执行对象
-    # argv : 传入参数
-    def click_star(self):
-        if self.click_func_state:
-            if not self.click_argv:
-                self.click_func()
+    # 注册鼠标事件
+    def set_mouse_event(self, mouse_type, func, argv = None):
+        mouse_event = self.mouse_event_list[mouse_type]
+        mouse_event.argv = argv
+        mouse_event.func = func
+        mouse_event.state = True
+    # 删除鼠标事件
+    def del_mouse_event(self, mouse_type):
+        mouse_event = self.mouse_event_list[mouse_type]
+        mouse_event.argv = None
+        mouse_event.func = None
+        mouse_event.state = False
+    # 执行鼠标事件
+    def mouse_event_star(self, ret_mouse):
+        mouse_event = self.mouse_event_list[ret_mouse.type]
+        if mouse_event and mouse_event.state:
+            if not mouse_event.argv:
+                mouse_event.func(ret_mouse)
             else:
-                self.click_func(self.click_argv)
+                mouse_event.func(ret_mouse, mouse_event.argv)
 
     # 注册键盘事件
     def set_keyboard_event(self, func, argv = None):
         self.keyboard_func = func
         self.keyboard_argv = argv
         self.keyboard_func_state = True
+    # 删除键盘事件
+    def del_keyboard_event(self):
+        self.keyboard_func = None
+        self.keyboard_argv = None
+        self.keyboard_func_state = False
     # 执行点击函数
     # self : 执行对象
     # argv : 传入参数
     def keyboard_star(self, keyboard):
-        if self.keyboard_func_state:
-            if not self.keyboard_argv:
-                self.keyboard_func(keyboard)
+        if self.keyboard_event.state:
+            if not self.keyboard_event.argv:
+                self.keyboard_event.func(keyboard)
             else:
-                self.keyboard_func(keyboard, self.keyboard_argv)
+                self.keyboard_event.func(keyboard, self.keyboard_event.argv)
