@@ -27,7 +27,8 @@ class MainView(mainViewMd.MainView):
 
     # 初始化
     def __init__(self):
-        super().__init__(ViewCfgMd.viem_main_screen)
+        # super().__init__(image_path = ViewCfgMd.viem_main_screen)
+        super().__init__(500, 500)
         self.set_fps(ViewCfgMd.viem_main_fps)
 
         # 初始化其他功能

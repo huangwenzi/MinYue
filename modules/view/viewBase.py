@@ -38,9 +38,6 @@ class ViewBase():
     # 相对父窗口左上角偏移
     x = 0   
     y = 0
-    # 最近一次的绝对坐标
-    abs_x = 0
-    abs_y = 0
     # 相对父窗口左上角偏移,初始位置
     init_x = 0   
     init_y = 0
@@ -59,7 +56,9 @@ class ViewBase():
 
     # 视图对象
     # 图片对象
-    image_obj = None    
+    image_obj = None   
+    # 父对象
+    father_obj = None 
 
     # 事件
     # 鼠标事件
@@ -71,11 +70,17 @@ class ViewBase():
     
     # 初始化
     # image_path: 图片地址
-    def __init__(self, image_path):
+    def __init__(self, width = 10, height = 10, image_path = None):
         if image_path:
             self.set_background(image_path)
-        self.frame_colour = viewCfgMd.view_colour
-        self.view_frame_width = viewCfgMd.view_frame_width
+        else:
+            self.image_obj = pygame.Surface((width,height))
+            self.image_obj.fill(viewCfgMd.colour_white)
+            self.width = width
+            self.height = height
+        self.father_obj = None
+        self.frame_colour = viewCfgMd.colour_black
+        self.frame_width = viewCfgMd.view_frame_width
         self.keyboard_event = EventObj()
         self.mouse_event_list = [
             EventObj()
@@ -86,22 +91,21 @@ class ViewBase():
 
     # 图像相关函数
     # 绘制自身
-    # view_obj: 调用绘制对象（一般为主视图）
-    # pos: 上一层的坐标偏移
-    def draw(self, view_obj, pos):
+    # view_obj: 调用绘制对象（一般为主视图
+    def draw(self, view_obj):
         if not self.show:
             return
         # 是否有背景图
-        x = self.x + pos[0]
-        y = self.y + pos[1]
-        self.abs_x = x
-        self.abs_y = y
+        abs_pos = self.get_abs_pos()
+        x = abs_pos[0]
+        y = abs_pos[1]
         if self.image_obj:
+            # pygame.Surface.blit()
             view_obj.blit(self.image_obj, (x, y))
         # 是否有边框
         if self.have_frame:
             # 绘制边缘
-            pygame.draw.rect(view_obj, self.frame_colour, (x, y, self.width, self.height), self.view_frame_width)
+            pygame.draw.rect(view_obj, self.frame_colour, (x, y, self.width, self.height), self.frame_width)
 
     # 设置背景图
     # image_path: 背景图地址
@@ -113,9 +117,14 @@ class ViewBase():
             self.height = tmp_obj.get_height()
             self.width = tmp_obj.get_width()
         
-    # 获取父节点绝对位置
-    def get_father_abs_pos(self):
-        return [self.abs_x - self.x, self.abs_y - self.y]
+    # 获取绝对位置
+    def get_abs_pos(self):
+        # 判断是否有父节点
+        if self.father_obj:
+            father_abs_pos = self.father_obj.get_abs_pos()
+            return (father_abs_pos[0] + self.x, father_abs_pos[1] + self.y)
+        else:
+            return (0,0)
         
 
     # 设置位置
@@ -139,11 +148,12 @@ class ViewBase():
         
     # 检查函数
     # 检查是否在鼠标点击范围内
-    def check_click(self, click_pos, father_pos):
+    def check_click(self, click_pos):
         if not self.show:
             return None
-        x = father_pos[0] + self.x
-        y = father_pos[1] + self.y
+        abs_pos = self.get_abs_pos()
+        x = abs_pos[0]
+        y = abs_pos[1]
         if x < click_pos.x and (x + self.width) > click_pos.x and y < click_pos.y and (y + self.height) > click_pos.y:
             return self
         return None

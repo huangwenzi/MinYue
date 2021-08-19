@@ -11,7 +11,7 @@ import modules.control.mouse as mouseMd
 import modules.config.enum as mouseEnumMd
 import modules.control.keyboard as KeyboardMd
 import modules.tool.time_tool as TimeToolMd
-
+import modules.config.viewCfg as viewCfgMd
 
         
 
@@ -30,11 +30,12 @@ class MainView(viewVesselMd.ViewVessel):
 
 
     # 初始化一个主界面
-    def __init__(self, image_path):
+    def __init__(self, width = 500, height = 500, image_path = None):
         #调用父类的构函
-        super().__init__(image_path)
+        super().__init__(width, height, image_path)
         pygame.display.set_caption(self.name)
-        self.view_obj = pygame.display.set_mode((self.width, self.height))
+        self.view_obj = pygame.display.set_mode((width, height))
+        # self.image_obj = pygame.display.set_mode((width, height))
         self.next_update = time.time()
         
     # 游戏循环
@@ -56,7 +57,7 @@ class MainView(viewVesselMd.ViewVessel):
 
             # 处理鼠标事件
             ret_mouse = mouse.mouse_event()
-            new_click_ret = self.check_click(ret_mouse, [0,0])
+            new_click_ret = self.check_click(ret_mouse)
             # 鼠标点下
             if ret_mouse.type == mouseEnumMd.mouse_click_down:  
                 if new_click_ret:
@@ -91,18 +92,14 @@ class MainView(viewVesselMd.ViewVessel):
         now = time.time()
         if now < self.next_update:
             return
-        super().draw(self.view_obj, (0, 0))
+        # self.view_obj.blit(self.image_obj, (0,0))
+        self.view_obj.fill(viewCfgMd.colour_white)
+        super().draw(self.view_obj)
         # update()绘制变化部分 flip()绘制全部
         # pygame.display.flip()
         pygame.display.update() 
         # 更新刷新时间
         self.next_update = now + self.fps
-
-    # 获取点击的对象
-    def check_click(self, click_pos, father_pos):
-        # 是否在范围内
-        ret = super().check_click(click_pos, father_pos)
-        return ret
 
     # 设置帧率
     def set_fps(self, new_fps):

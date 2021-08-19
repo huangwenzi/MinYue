@@ -15,7 +15,7 @@ class Button(viewBaseMd.ViewBase):
     # 文本
     text = "button"
     # 文本颜色
-    text_colour = viewCfgMd.sys_font_text_colour
+    text_colour = viewCfgMd.colour_black
     # 文字大小
     size = viewCfgMd.sys_font_size
     # 字体
@@ -28,9 +28,9 @@ class Button(viewBaseMd.ViewBase):
     
     # 初始化
     # image_path: 图片地址
-    def __init__(self, text = None, size = None, image_path = None, width = 0, height = 0):
+    def __init__(self, text = None, size = None, image_path = None, width = 10, height = 10):
         #调用父类的构函
-        super().__init__(image_path)
+        super().__init__(width, height, image_path)
         if text:
             self.text = text
         if size:
@@ -44,14 +44,14 @@ class Button(viewBaseMd.ViewBase):
     # 绘制自身
     # view_obj: 调用绘制对象（一般为主视图）
     # pos: 上一层的坐标偏移
-    def draw(self, view_obj, pos):
+    def draw(self, view_obj):
         if not self.show:
             return
         # 父类绘制图片
-        super().draw(view_obj, pos)
+        super().draw(view_obj)
         # 绘制文本
-        x = self.x + pos[0]
-        y = self.y + pos[1]
+        x = self.x
+        y = self.y
         if self.text:
             # 取中间点
             middle_x = x + (self.width - (len(self.text)*self.size))/2

@@ -20,7 +20,7 @@ class Label():
     # 文本
     text = "label"
     # 文本颜色
-    text_colour = viewCfgMd.sys_font_text_colour
+    text_colour = viewCfgMd.colour_black
     # 文字大小
     size = viewCfgMd.sys_font_size
     # 字体
