@@ -50,7 +50,7 @@ class Mouse():
                 ret.type = mouseEnumMd.mouse_click_down
                 self.last_down_x = position[0]
                 self.last_down_y = position[1]
-            else:
+            elif self.last_down_x != position[0] or self.last_down_y != position[1]:
                 # 鼠标拖动
                 ret.type = mouseEnumMd.mouse_click_drag
                 ret.last_down_x = self.last_down_x

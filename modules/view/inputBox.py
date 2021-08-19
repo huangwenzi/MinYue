@@ -29,12 +29,16 @@ class InputBox(viewBaseMd.ViewBase):
     # 初始化
     # image_path: 图片地址
     def __init__(self, text = None, size = None, width = 0, height = 0):
+        #调用父类的构函
+        super().__init__(None)
         if text:
             self.text = text
         if size:
             self.size = size
         self.width = width
         self.height = height
+        # 注册键盘事件
+        self.set_keyboard_event(self, self.keyboard_fun)
         
     # 图像相关函数
     # 绘制自身

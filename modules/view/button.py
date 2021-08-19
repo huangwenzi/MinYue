@@ -37,6 +37,8 @@ class Button(viewBaseMd.ViewBase):
             self.size = size
         self.width = width
         self.height = height
+        # 设置边框
+        self.have_frame = True
         
     # 图像相关函数
     # 绘制自身
@@ -55,8 +57,8 @@ class Button(viewBaseMd.ViewBase):
             middle_x = x + (self.width - (len(self.text)*self.size))/2
             middle_y = y + (self.height - self.size)/2
             self.f1.render_to(view_obj, (middle_x, middle_y), self.text, fgcolor = self.text_colour, size = self.size)
-        # 绘制边缘
-        pygame.draw.rect(view_obj, self.text_colour, (x, y, self.width, self.height), self.rect_width)
+        # # 绘制边缘
+        # pygame.draw.rect(view_obj, self.text_colour, (x, y, self.width, self.height), self.rect_width)
         
     # 点击事件用父类的
     

@@ -6,6 +6,7 @@
 # 项目模块
 import modules.view.viewBase as viewBaseMd
 import modules.config.viewCfg as viewCfgMd
+import modules.config.enum as mouseEnumMd
 
 
 # 最基础的视图容器
@@ -50,12 +51,9 @@ class ViewVessel(viewBaseMd.ViewBase):
         # 添加到最前面
         self.son_view_arr.insert(0, view_obj)
     # 设置关闭按钮
-    def add_close_Button(self, func, argv = None):
+    def add_close_Button(self, obj, func):
         self.close_view = viewBaseMd.ViewBase(viewCfgMd.close_button_path)
-        if argv:
-            self.close_view.set_click_event(func, argv)
-        else:
-            self.close_view.set_click_event(func)
+        self.close_view.set_mouse_event(mouseEnumMd.mouse_click_open, obj, func)
         # 设置位置
         exit_width = self.close_view.width
         x = self.width - exit_width

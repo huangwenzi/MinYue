@@ -66,8 +66,8 @@ class MainView(viewVesselMd.ViewVessel):
                 if click_ret == new_click_ret:  # 点下和弹起是同一对象
                     click_ret.mouse_event_star(ret_mouse)
             elif ret_mouse.type == mouseEnumMd.mouse_click_drag:  # 鼠标拖动
-                if click_ret == new_click_ret:  # 点下和拖动是同一对象
-                    click_ret.mouse_event_star(ret_mouse)
+                # 左键点下，且位置变化
+                click_ret.mouse_event_star(ret_mouse)
               
                         
 

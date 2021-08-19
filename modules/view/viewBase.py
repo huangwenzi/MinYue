@@ -4,6 +4,9 @@
 import pygame
 
 
+# 项目库
+import modules.config.viewCfg as viewCfgMd
+
 
 # 事件对象
 class EventObj(object):
@@ -13,10 +16,13 @@ class EventObj(object):
     func = None  
     # 事件参数
     argv = None
+    # 组件对象
+    obj = None
     def __init__(self):
         self.state = False
         self.func = None
         self.argv = None
+        self.obj = None
         
 
 
@@ -32,6 +38,9 @@ class ViewBase():
     # 相对父窗口左上角偏移
     x = 0   
     y = 0
+    # 最近一次的绝对坐标
+    abs_x = 0
+    abs_y = 0
     # 相对父窗口左上角偏移,初始位置
     init_x = 0   
     init_y = 0
@@ -40,6 +49,14 @@ class ViewBase():
     # 是否显示
     show = True
 
+    # 边框
+    # 是否有边框
+    have_frame = False
+    # 边框颜色
+    frame_colour = (0,0,0)
+    # 边框宽度
+    frame_width = 0
+
     # 视图对象
     # 图片对象
     image_obj = None    
@@ -47,13 +64,6 @@ class ViewBase():
     # 事件
     # 鼠标事件
     mouse_event_list = [EventObj()]
-    # 点击事件
-    # 是否有点击事件
-    mouse_open_func_state = False
-    # 点击事件执行函数
-    mouse_open_func = None  
-    # 点击事件参数
-    mouse_open_argv = None
 
     # 键盘事件
     keyboard_event = EventObj()
@@ -64,6 +74,8 @@ class ViewBase():
     def __init__(self, image_path):
         if image_path:
             self.set_background(image_path)
+        self.frame_colour = viewCfgMd.view_colour
+        self.view_frame_width = viewCfgMd.view_frame_width
         self.keyboard_event = EventObj()
         self.mouse_event_list = [
             EventObj()
@@ -80,10 +92,16 @@ class ViewBase():
         if not self.show:
             return
         # 是否有背景图
+        x = self.x + pos[0]
+        y = self.y + pos[1]
+        self.abs_x = x
+        self.abs_y = y
         if self.image_obj:
-            x = self.x + pos[0]
-            y = self.y + pos[1]
             view_obj.blit(self.image_obj, (x, y))
+        # 是否有边框
+        if self.have_frame:
+            # 绘制边缘
+            pygame.draw.rect(view_obj, self.frame_colour, (x, y, self.width, self.height), self.view_frame_width)
 
     # 设置背景图
     # image_path: 背景图地址
@@ -94,6 +112,11 @@ class ViewBase():
             self.image_obj = tmp_obj
             self.height = tmp_obj.get_height()
             self.width = tmp_obj.get_width()
+        
+    # 获取父节点绝对位置
+    def get_father_abs_pos(self):
+        return [self.abs_x - self.x, self.abs_y - self.y]
+        
 
     # 设置位置
     def set_pos(self, x, y):
@@ -127,14 +150,16 @@ class ViewBase():
 
     # 注册事件
     # 注册鼠标事件
-    def set_mouse_event(self, mouse_type, func, argv = None):
+    def set_mouse_event(self, mouse_type, obj, func, argv = None):
         mouse_event = self.mouse_event_list[mouse_type]
+        mouse_event.obj = obj
         mouse_event.argv = argv
         mouse_event.func = func
         mouse_event.state = True
     # 删除鼠标事件
     def del_mouse_event(self, mouse_type):
         mouse_event = self.mouse_event_list[mouse_type]
+        mouse_event.obj = None
         mouse_event.argv = None
         mouse_event.func = None
         mouse_event.state = False
@@ -148,15 +173,17 @@ class ViewBase():
                 mouse_event.func(ret_mouse, mouse_event.argv)
 
     # 注册键盘事件
-    def set_keyboard_event(self, func, argv = None):
-        self.keyboard_func = func
-        self.keyboard_argv = argv
-        self.keyboard_func_state = True
+    def set_keyboard_event(self, obj, func, argv = None):
+        self.keyboard_event.obj = obj
+        self.keyboard_event.func = func
+        self.keyboard_event.argv = argv
+        self.keyboard_event.state = True
     # 删除键盘事件
     def del_keyboard_event(self):
-        self.keyboard_func = None
-        self.keyboard_argv = None
-        self.keyboard_func_state = False
+        self.keyboard_event.obj = None
+        self.keyboard_event.func = None
+        self.keyboard_event.argv = None
+        self.keyboard_event.state = False
     # 执行点击函数
     # self : 执行对象
     # argv : 传入参数

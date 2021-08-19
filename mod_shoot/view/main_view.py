@@ -6,6 +6,7 @@ import modules.view.button as ButtonMd
 import modules.view.inputBox as InputBoxMd
 import modules.control.instanceMgr as instanceMgrMd
 import modules.config.enum as mouseEnumMd
+import modules.view.viewList as viewListMd
 # mod模块
 import mod_shoot.config.view as ViewCfgMd
 
@@ -17,6 +18,8 @@ class MainView(mainViewMd.MainView):
     in_put_password = None
     # 连接按钮
     login_button = None
+    # 服务器列表
+    ser_view_list = None
 
     # 下一个icon位置
     icon_x = 0
@@ -47,11 +50,16 @@ class MainView(mainViewMd.MainView):
         login_button.set_pos((main_width - login_button.width)/2, 160)
         self.login_button = login_button
         self.add_son_view(login_button)
-        login_button.set_mouse_event(mouseEnumMd.mouse_click_down, self.login_button_click_event, self)
-        
+        login_button.set_mouse_event(mouseEnumMd.mouse_click_open, self, self.login_button_click_event)
+        # 列表
+        # 服务器列表
+        ser_view_list = viewListMd.ViewList(100, 100)
+        ser_view_list.set_pos(100, 200)
+        self.ser_view_list = ser_view_list
+        self.add_son_view(ser_view_list)
         
     # 登录事件
-    def login_button_click_event(obj, ret_mouse, self):
+    def login_button_click_event(self, ret_mouse):
         print("login_button_click_event")
         # 连接服务器
         pass
