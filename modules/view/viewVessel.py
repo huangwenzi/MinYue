@@ -50,6 +50,15 @@ class ViewVessel(viewBaseMd.ViewBase):
         # 添加到最前面
         view_obj.father_obj = self
         self.son_view_arr.insert(0, view_obj)
+    # 删除子视图
+    # view_obj: 子视图对象
+    def del_son_view(self, view_obj):
+        idx = 0
+        for item in self.son_view_arr:
+            if item is view_obj:
+                del self.son_view_arr[idx]
+                return
+            idx += 1
         
     # 设置关闭按钮
     def add_close_Button(self, obj, func):

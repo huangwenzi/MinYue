@@ -14,11 +14,17 @@ sys_font_size = 24
 view_frame_width = 2
 
 # 列表视图
-
 # 滑块默认宽高
 view_slider_width = 15
 view_slider_height = 45
+# 每行默认数量
+view_list_row_num = 2
+# 每行默认间隔
+view_list_row_space = 5
 
+# 图像类型
+view_type_rect = 1      # 矩形
+view_type_rhombus = 2   # 菱形
 
 # 按钮
 # 默认矩形边缘宽度

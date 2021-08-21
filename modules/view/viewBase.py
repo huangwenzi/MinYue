@@ -2,10 +2,12 @@
 
 # 三方模块
 import pygame
+import copy
 
 
 # 项目库
 import modules.config.viewCfg as viewCfgMd
+import modules.view.viewLib as ViewLibMd
 
 
 # 事件对象
@@ -46,9 +48,13 @@ class ViewBase():
     # 是否显示
     show = True
 
+    
+
     # 边框
     # 是否有边框
     have_frame = False
+    # 图形类型
+    frame_figure_type = 0
     # 边框颜色
     frame_colour = (0,0,0)
     # 边框宽度
@@ -63,7 +69,6 @@ class ViewBase():
     # 事件
     # 鼠标事件
     mouse_event_list = [EventObj()]
-
     # 键盘事件
     keyboard_event = EventObj()
 
@@ -74,13 +79,14 @@ class ViewBase():
         if image_path:
             self.set_background(image_path)
         else:
-            self.image_obj = pygame.Surface((width,height))
-            self.image_obj.fill(viewCfgMd.colour_white)
+            # self.image_obj = pygame.Surface((width,height))
+            # self.image_obj.fill(viewCfgMd.colour_white)
             self.width = width
             self.height = height
         self.father_obj = None
         self.frame_colour = viewCfgMd.colour_black
         self.frame_width = viewCfgMd.view_frame_width
+        self.frame_figure_type = viewCfgMd.view_type_rect
         self.keyboard_event = EventObj()
         self.mouse_event_list = [
             EventObj()
@@ -95,17 +101,75 @@ class ViewBase():
     def draw(self, view_obj):
         if not self.show:
             return
-        # 是否有背景图
-        abs_pos = self.get_abs_pos()
-        x = abs_pos[0]
-        y = abs_pos[1]
-        if self.image_obj:
-            # pygame.Surface.blit()
-            view_obj.blit(self.image_obj, (x, y))
-        # 是否有边框
-        if self.have_frame:
-            # 绘制边缘
-            pygame.draw.rect(view_obj, self.frame_colour, (x, y, self.width, self.height), self.frame_width)
+        # 没有 father的是main_view, 退出
+        if not self.father_obj:
+            return 
+        # 是否应超出范围需要改变
+        self_figure = self.get_view_figure()
+        father_figure = self.father_obj.get_view_figure()
+        have_change,ret_rect = ViewLibMd.get_rect_in_rect_part(self_figure, father_figure)
+        # 绘制图像
+        self.draw_image_obj(view_obj, have_change, ret_rect)
+        # 绘制图形
+        self.draw_figure(view_obj, have_change, ret_rect)
+        # 绘制边框
+        self.draw_frame(view_obj, have_change, ret_rect, self_figure)
+    
+    # 绘制图像
+    def draw_image_obj(self, view_obj, have_change, ret_rect):
+        if not self.image_obj:
+            return
+        if not self.father_obj:
+            return
+        # pygame.Surface.blit()
+        # 只绘制在父对象范围内的图像
+        if self.father_obj:
+            # 是否超出范围
+            self_figure = self.get_view_figure()
+            father_figure = self.father_obj.get_view_figure()
+            if not ViewLibMd.rect_in_rect(self_figure, father_figure):
+                # 超出范围不绘制
+                return
+            else:
+                abs_pos = self.get_abs_pos()
+                # 是否应超出范围需要改变
+                have_change,ret_rect = ViewLibMd.get_rect_in_rect_part(self_figure, father_figure)
+                # 是否有修改
+                if have_change:
+                    # 绘制
+                    view_obj.blit(self.image_obj, abs_pos, ViewLibMd.view_rect_to_pygame_rect(ret_rect))
+                else:
+                    # 正常绘制
+                    view_obj.blit(self.image_obj, abs_pos)  
+
+    # 绘制图形 预留
+    def draw_figure(self, view_obj, have_change, ret_rect):
+        pass
+
+    # 绘制边框
+    def draw_frame(self, view_obj, have_change, ret_rect, self_figure):
+        if not self.have_frame:
+            return
+
+        if self.frame_figure_type == viewCfgMd.view_type_rect:
+            # 矩形边框
+            if have_change:
+                abs_pos = self.get_abs_pos()
+                frame_rect = copy.deepcopy(ret_rect)
+                frame_rect.x = frame_rect.x + abs_pos[0]
+                frame_rect.y = frame_rect.y + abs_pos[1]
+                pygame.draw.rect(view_obj, self.frame_colour, ViewLibMd.view_rect_to_pygame_rect(frame_rect), self.frame_width)
+            else:
+                pygame.draw.rect(view_obj, self.frame_colour, ViewLibMd.view_rect_to_pygame_rect(self_figure), self.frame_width)
+        elif self.frame_figure_type == viewCfgMd.view_type_rhombus:
+            # 菱形边框  没考虑超范围问题
+            # 先求出四个点
+            pos_1,pos_2,pos_3,pos_4 = ViewLibMd.get_rhombus_pos(ViewLibMd.view_dot(self.x, self.y), self.width, self.height)
+            pygame.draw.line(view_obj, self.frame_colour, pos_1, pos_2, self.frame_width)
+            pygame.draw.line(view_obj, self.frame_colour, pos_2, pos_3, self.frame_width)
+            pygame.draw.line(view_obj, self.frame_colour, pos_3, pos_4, self.frame_width)
+            pygame.draw.line(view_obj, self.frame_colour, pos_4, pos_1, self.frame_width)
+        
 
     # 设置背景图
     # image_path: 背景图地址
@@ -125,7 +189,10 @@ class ViewBase():
             return (father_abs_pos[0] + self.x, father_abs_pos[1] + self.y)
         else:
             return (0,0)
-        
+    # 获取图形对象
+    def get_view_figure(self):
+        abs_pos = self.get_abs_pos()
+        return ViewLibMd.view_rect(abs_pos[0], abs_pos[1], self.width, self.height)
 
     # 设置位置
     def set_pos(self, x, y):
@@ -151,10 +218,7 @@ class ViewBase():
     def check_click(self, click_pos):
         if not self.show:
             return None
-        abs_pos = self.get_abs_pos()
-        x = abs_pos[0]
-        y = abs_pos[1]
-        if x < click_pos.x and (x + self.width) > click_pos.x and y < click_pos.y and (y + self.height) > click_pos.y:
+        if ViewLibMd.dot_in_rect(ViewLibMd.view_dot(click_pos.x, click_pos.y), self.get_view_figure()):
             return self
         return None
 

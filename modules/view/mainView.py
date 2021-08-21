@@ -23,7 +23,7 @@ class MainView(viewVesselMd.ViewVessel):
 
     # 设置
     fps = 1 # 帧率
-    next_update = 0  # 下次刷新界面时间
+    last_update = 0  # 上次刷新界面时间
 
     # 视图对象
     view_obj = None    # 窗体对象
@@ -36,7 +36,7 @@ class MainView(viewVesselMd.ViewVessel):
         pygame.display.set_caption(self.name)
         self.view_obj = pygame.display.set_mode((width, height))
         # self.image_obj = pygame.display.set_mode((width, height))
-        self.next_update = time.time()
+        self.last_update = time.time()
         
     # 游戏循环
     def run(self):
@@ -57,6 +57,8 @@ class MainView(viewVesselMd.ViewVessel):
 
             # 处理鼠标事件
             ret_mouse = mouse.mouse_event()
+            # if ret_mouse.type == mouseEnumMd.mouse_click_down:
+            #     a = 1
             new_click_ret = self.check_click(ret_mouse)
             # 鼠标点下
             if ret_mouse.type == mouseEnumMd.mouse_click_down:  
@@ -90,7 +92,7 @@ class MainView(viewVesselMd.ViewVessel):
     def draw(self):
         # 根据帧率刷新
         now = time.time()
-        if now < self.next_update:
+        if now < self.last_update + self.fps:
             return
         # self.view_obj.blit(self.image_obj, (0,0))
         self.view_obj.fill(viewCfgMd.colour_white)
@@ -99,7 +101,15 @@ class MainView(viewVesselMd.ViewVessel):
         # pygame.display.flip()
         pygame.display.update() 
         # 更新刷新时间
-        self.next_update = now + self.fps
+        self.last_update = now
+    
+    # 马上绘制一下
+    def draw_now(self):
+        fps = self.fps
+        self.set_fps(0)
+        self.draw()
+        self.set_fps(fps)
+        
 
     # 设置帧率
     def set_fps(self, new_fps):
