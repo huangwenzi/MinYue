@@ -83,5 +83,10 @@ def get_rhombus_pos(pos_dot, w, h):
     pos_4 = (pos_dot.x + w/2, pos_dot.y + h)
     return pos_1,pos_2,pos_3,pos_4
 
-
+# 点是否在菱形中
+def dot_in_rhombus(pos_dot, rect):
+    # 减去菱形的绝对坐标偏移，和中心点相对绝对坐标的偏移
+    pos_abs_x = pos_dot.x - rect.x - rect.w/2   
+    pos_abs_y = pos_dot.y - rect.y - rect.h/2
+    return abs(pos_abs_x*rect.h/2) + abs(pos_abs_y*rect.w/2) < rect.h*rect.w/4
 

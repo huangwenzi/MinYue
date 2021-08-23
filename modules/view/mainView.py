@@ -93,6 +93,7 @@ class MainView(viewVesselMd.ViewVessel):
         # 根据帧率刷新
         now = time.time()
         if now < self.last_update + self.fps:
+            time.sleep(self.last_update + self.fps - now)   # cpu有效降低，但可能影响其他需要处理的地方
             return
         # self.view_obj.blit(self.image_obj, (0,0))
         self.view_obj.fill(viewCfgMd.colour_white)

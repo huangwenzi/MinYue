@@ -72,6 +72,8 @@ class ViewBase():
     # 键盘事件
     keyboard_event = EventObj()
 
+    # 额外参数
+    param = None
     
     # 初始化
     # image_path: 图片地址
@@ -94,6 +96,7 @@ class ViewBase():
             , EventObj()
             , EventObj()
         ]
+        self.param = None
 
     # 图像相关函数
     # 绘制自身
@@ -218,8 +221,15 @@ class ViewBase():
     def check_click(self, click_pos):
         if not self.show:
             return None
-        if ViewLibMd.dot_in_rect(ViewLibMd.view_dot(click_pos.x, click_pos.y), self.get_view_figure()):
-            return self
+        self_figure = self.get_view_figure()
+        if self.frame_figure_type == viewCfgMd.view_type_rect:
+            # 矩形
+            if ViewLibMd.dot_in_rect(ViewLibMd.view_dot(click_pos.x, click_pos.y), self_figure):
+                return self
+        elif self.frame_figure_type == viewCfgMd.view_type_rhombus:
+            # 菱形
+            if ViewLibMd.dot_in_rhombus(ViewLibMd.view_dot(click_pos.x, click_pos.y), self_figure):
+                return self
         return None
 
     # 注册事件
