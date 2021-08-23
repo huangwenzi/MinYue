@@ -42,6 +42,8 @@ class MainView(viewVesselMd.ViewVessel):
     def run(self):
         # 最近的点击对象
         click_ret = None
+        # 最近所在的位置对象
+        pos_obj = None
         mouse = mouseMd.Mouse()
         keyboard = KeyboardMd.Keyboard()
         
@@ -59,20 +61,36 @@ class MainView(viewVesselMd.ViewVessel):
             ret_mouse = mouse.mouse_event()
             # if ret_mouse.type == mouseEnumMd.mouse_click_down:
             #     a = 1
-            new_click_ret = self.check_click(ret_mouse)
+            new_pos_obj = self.check_click(ret_mouse)
             # 鼠标点下
             if ret_mouse.type == mouseEnumMd.mouse_click_down:  
-                if new_click_ret:
-                    click_ret = new_click_ret
+                if new_pos_obj:
+                    click_ret = new_pos_obj
                     click_ret.mouse_event_star(ret_mouse)  
             elif ret_mouse.type == mouseEnumMd.mouse_click_open:  # 鼠标弹起
-                if click_ret == new_click_ret:  # 点下和弹起是同一对象
+                if click_ret == new_pos_obj:  # 点下和弹起是同一对象
                     click_ret.mouse_event_star(ret_mouse)
             elif ret_mouse.type == mouseEnumMd.mouse_click_drag:  # 鼠标拖动
                 # 左键点下，且位置变化
                 click_ret.mouse_event_star(ret_mouse)
-              
-                        
+            elif ret_mouse.type == mouseEnumMd.mouse_click_move:  # 鼠标移动
+                if pos_obj == new_pos_obj:  # 同一对象
+                    ret_mouse.type = mouseEnumMd.mouse_click_move
+                    if pos_obj:
+                        pos_obj.mouse_event_star(ret_mouse)
+                else:
+                    if pos_obj:
+                        # 移出事件
+                        print("mouse_click_move_out")
+                        ret_mouse.type = mouseEnumMd.mouse_click_move_out
+                        pos_obj.mouse_event_star(ret_mouse)
+                    # 移入事件
+                    if new_pos_obj:
+                        print("mouse_click_move_in")
+                        ret_mouse.type = mouseEnumMd.mouse_click_move_in
+                        new_pos_obj.mouse_event_star(ret_mouse)
+            # 更新位置对象
+            pos_obj = new_pos_obj
 
             # 键盘事件
             # new_dowm_map,new_up_map,now_dowm_map = keyboard.keyboard_event()

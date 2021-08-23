@@ -13,12 +13,16 @@ class MouseState():
     y = 0
     last_down_x = 0
     last_down_y = 0
+    last_x = 0
+    last_y = 0
     def __init__(self):
         self.type = mouseEnumMd.mouse_click_free
         self.x = 0
         self.y = 0
         self.last_down_x = 0
         self.last_down_y = 0
+        self.last_x = 0
+        self.last_y = 0
 
 # 鼠标事件处理
 class Mouse():
@@ -29,6 +33,9 @@ class Mouse():
     # 上次点击的位置
     last_down_x = 0
     last_down_y = 0
+    # 上次鼠标的位置
+    last_x = 0
+    last_y = 0
 
     # 初始化
     def __init__(self):
@@ -48,18 +55,25 @@ class Mouse():
             if self.left_set == False:
                 self.left_set = True
                 ret.type = mouseEnumMd.mouse_click_down
-                self.last_down_x = position[0]
-                self.last_down_y = position[1]
-            elif self.last_down_x != position[0] or self.last_down_y != position[1]:
+                self.last_down_x = ret.x
+                self.last_down_y = ret.y
+            elif self.last_down_x != ret.x or self.last_down_y != ret.y:
                 # 鼠标拖动
                 ret.type = mouseEnumMd.mouse_click_drag
                 ret.last_down_x = self.last_down_x
                 ret.last_down_y = self.last_down_y
-                self.last_down_x = position[0]
-                self.last_down_y = position[1]
+                self.last_down_x = ret.x
+                self.last_down_y = ret.y
         elif pressde[0] == 0 and self.left_set == True:
             # 鼠标弹起
             self.left_set = False
             ret.type = mouseEnumMd.mouse_click_open
+        elif ret.x != self.last_x or ret.y != self.last_y:
+            # 鼠标移动
+            ret.type = mouseEnumMd.mouse_click_move
+            ret.last_x = self.last_x
+            ret.last_y = self.last_y
+        self.last_x = ret.x
+        self.last_y = ret.y
         return ret
 

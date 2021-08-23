@@ -19,6 +19,7 @@ class InputBox(LabelMd.Label):
         #调用父类的构函
         super().__init__(text_str, text_size, width, height, image_path)
         self.have_frame = True
+        self.frame_width = viewCfgMd.input_box_rect_width
         # 注册键盘事件
         self.set_keyboard_event(self, self.keyboard_fun)
         

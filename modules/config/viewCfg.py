@@ -34,7 +34,7 @@ button_rect_width = 2
 
 # 输入框
 # 默认矩形边缘宽度
-input_box_rect_width = 2
+input_box_rect_width = 1
 
 
 

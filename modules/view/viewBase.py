@@ -8,6 +8,7 @@ import copy
 # 项目库
 import modules.config.viewCfg as viewCfgMd
 import modules.view.viewLib as ViewLibMd
+import modules.config.enum as EnumMd
 
 
 # 事件对象
@@ -90,12 +91,8 @@ class ViewBase():
         self.frame_width = viewCfgMd.view_frame_width
         self.frame_figure_type = viewCfgMd.view_type_rect
         self.keyboard_event = EventObj()
-        self.mouse_event_list = [
-            EventObj()
-            , EventObj()
-            , EventObj()
-            , EventObj()
-        ]
+        for idx in range(EnumMd.mouse_click_max):
+            self.mouse_event_list.append(EventObj())
         self.param = None
 
     # 图像相关函数
