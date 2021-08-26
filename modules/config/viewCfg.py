@@ -26,6 +26,16 @@ view_list_row_space = 5
 view_type_rect = 1      # 矩形
 view_type_rhombus = 2   # 菱形
 
+
+# label
+# 文本x位置
+text_x_pos_middle = 1     # 文本居中
+text_x_pos_left = 2       # 文本左对齐
+# 文本x位置
+text_y_pos_middle = 1     # 文本居中
+text_y_pos_top = 2        # 文本顶部对齐
+text_y_pos_bottom = 3     # 文本底部对齐
+
 # 按钮
 # 默认矩形边缘宽度
 button_rect_width = 2

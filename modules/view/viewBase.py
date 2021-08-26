@@ -69,9 +69,9 @@ class ViewBase():
 
     # 事件
     # 鼠标事件
-    mouse_event_list = [EventObj()]
+    mouse_event_list = []
     # 键盘事件
-    keyboard_event = EventObj()
+    keyboard_event = None
 
     # 额外参数
     param = None
@@ -91,7 +91,8 @@ class ViewBase():
         self.frame_width = viewCfgMd.view_frame_width
         self.frame_figure_type = viewCfgMd.view_type_rect
         self.keyboard_event = EventObj()
-        for idx in range(EnumMd.mouse_click_max):
+        self.mouse_event_list = []
+        for idx in range(EnumMd.mouse_click_max+1):
             self.mouse_event_list.append(EventObj())
         self.param = None
 

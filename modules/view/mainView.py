@@ -81,12 +81,10 @@ class MainView(viewVesselMd.ViewVessel):
                 else:
                     if pos_obj:
                         # 移出事件
-                        print("mouse_click_move_out")
                         ret_mouse.type = mouseEnumMd.mouse_click_move_out
                         pos_obj.mouse_event_star(ret_mouse)
                     # 移入事件
                     if new_pos_obj:
-                        print("mouse_click_move_in")
                         ret_mouse.type = mouseEnumMd.mouse_click_move_in
                         new_pos_obj.mouse_event_star(ret_mouse)
             # 更新位置对象
