@@ -24,7 +24,7 @@ class MainView(mainViewMd.MainView):
 
     # 初始化
     def __init__(self):
-        super().__init__('qinShi/resource/screen/main.jpg')
+        super().__init__(image_path = 'qinShi/resource/screen/main.jpg')
         self.set_fps(cfg_mgr.game_cfg["fps"]["date"])
 
         # 初始化其他功能

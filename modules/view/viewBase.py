@@ -49,7 +49,9 @@ class ViewBase():
     # 是否显示
     show = True
 
-    
+    # 图形
+    have_figure = False
+    figure_colour = viewCfgMd.colour_ash
 
     # 边框
     # 是否有边框
@@ -57,7 +59,7 @@ class ViewBase():
     # 图形类型
     frame_figure_type = 0
     # 边框颜色
-    frame_colour = (0,0,0)
+    frame_colour = viewCfgMd.colour_black
     # 边框宽度
     frame_width = 0
 
@@ -112,7 +114,7 @@ class ViewBase():
         # 绘制图像
         self.draw_image_obj(view_obj, have_change, ret_rect)
         # 绘制图形
-        self.draw_figure(view_obj, have_change, ret_rect)
+        self.draw_figure(view_obj, have_change, ret_rect, self_figure)
         # 绘制边框
         self.draw_frame(view_obj, have_change, ret_rect, self_figure)
     
@@ -143,9 +145,28 @@ class ViewBase():
                     # 正常绘制
                     view_obj.blit(self.image_obj, abs_pos)  
 
-    # 绘制图形 预留
-    def draw_figure(self, view_obj, have_change, ret_rect):
-        pass
+    # 绘制图形
+    def draw_figure(self, view_obj, have_change, ret_rect, self_figure):
+        # 没有图形退出
+        if not self.have_figure:
+            return
+        if self.frame_figure_type == viewCfgMd.view_type_rect:
+            # 矩形边框
+            if have_change:
+                abs_pos = self.get_abs_pos()
+                frame_rect = copy.deepcopy(ret_rect)
+                frame_rect.x = frame_rect.x + abs_pos[0]
+                frame_rect.y = frame_rect.y + abs_pos[1]
+                pygame.draw.rect(view_obj, self.figure_colour, ViewLibMd.view_rect_to_pygame_rect(frame_rect), 0)
+            else:
+                pygame.draw.rect(view_obj, self.figure_colour, ViewLibMd.view_rect_to_pygame_rect(self_figure), 0)
+        elif self.frame_figure_type == viewCfgMd.view_type_rhombus:
+            # 菱形边框  没考虑超范围问题
+            # 先求出四个点
+            pos_1,pos_2,pos_3,pos_4 = ViewLibMd.get_rhombus_pos(ViewLibMd.view_dot(self.x, self.y), self.width, self.height)
+            # polygon支持多边形
+            points = [pos_1,pos_2,pos_3,pos_4]
+            pygame.draw.polygon(view_obj, self.figure_colour, points, 0)
 
     # 绘制边框
     def draw_frame(self, view_obj, have_change, ret_rect, self_figure):
@@ -166,10 +187,13 @@ class ViewBase():
             # 菱形边框  没考虑超范围问题
             # 先求出四个点
             pos_1,pos_2,pos_3,pos_4 = ViewLibMd.get_rhombus_pos(ViewLibMd.view_dot(self.x, self.y), self.width, self.height)
-            pygame.draw.line(view_obj, self.frame_colour, pos_1, pos_2, self.frame_width)
-            pygame.draw.line(view_obj, self.frame_colour, pos_2, pos_3, self.frame_width)
-            pygame.draw.line(view_obj, self.frame_colour, pos_3, pos_4, self.frame_width)
-            pygame.draw.line(view_obj, self.frame_colour, pos_4, pos_1, self.frame_width)
+            # pygame.draw.line(view_obj, self.frame_colour, pos_1, pos_2, self.frame_width)
+            # pygame.draw.line(view_obj, self.frame_colour, pos_2, pos_3, self.frame_width)
+            # pygame.draw.line(view_obj, self.frame_colour, pos_3, pos_4, self.frame_width)
+            # pygame.draw.line(view_obj, self.frame_colour, pos_4, pos_1, self.frame_width)
+            # polygon支持多边形
+            points = [pos_1,pos_2,pos_3,pos_4]
+            pygame.draw.polygon(view_obj, self.frame_colour, points, self.frame_width)
         
 
     # 设置背景图

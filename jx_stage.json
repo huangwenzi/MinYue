@@ -2,5 +2,12 @@
     "w" : 10,
     "h" : 10,
     "ima_size" : [100, 100],
-    "excel_path" : "E:/hw/code/excel/test.xlsx"
+    "excel_path" : "E:/hw/code/excel/test.xlsx",
+    "id_des" : "id:唯一id的字段名",
+    "id" : "id",
+    "pos_des" : "pos:位置的字段名",
+    "pos" : "pos",
+    "stage_des" : "stage:关卡的字段名",
+    "stage" : "stage",
+    "show_data" : ["id","type"]
 }

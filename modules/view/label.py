@@ -48,7 +48,6 @@ class Label(viewBaseMd.ViewBase):
         # 父类绘制图片
         super().draw(view_obj)
         if self.text_str:
-            abs_pos = self.get_abs_pos()
             # 换行
             str_list = self.text_str.split("\n")
             # 获取y位置
